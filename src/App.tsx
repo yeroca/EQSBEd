@@ -2,7 +2,7 @@
 // ParentComponent.js
 import { useState } from 'react';
 import FileUploader from './components/FileUploader';
-import SocialKey from './components/SocialKey';
+import SocialKeyPage from './components/SocialKeyPage';
 
 interface IniData {
     [section: string]: { [key: string]: string };
@@ -16,13 +16,15 @@ const App = () => {
     setIniData(data);
   };
 
-  const keyNums = Array.from(Array(120), (_, i) => i+1);
-  
+  const pageNums = Array.from(Array(10), (_, i) => i+1);
+
   return (
     <div className="container">
       <h1>SKEd <small><mark>the Social Key Editor</mark></small></h1>
       <FileUploader onIniData={updateIniData} />
-      {keyNums.map(keyNum => <SocialKey iniData={iniData} keyNum={keyNum.toString()}></SocialKey>)}
+      <span>
+        {pageNums.map(pageNum => <SocialKeyPage iniData={iniData} pageNum={pageNum.toString()}></SocialKeyPage>)}
+      </span>
     </div>
   );
 };
