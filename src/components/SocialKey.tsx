@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 interface IniData {
-  [section: string]: { [key: string]: string };
+  [section: string]: { [nameKey: string]: string };
 }
 
 interface SocialKeyProps {
@@ -9,25 +9,63 @@ interface SocialKeyProps {
   keyNum: string;
 }
 
+interface ColorsType {
+  [key: string]: string;
+}
 
-const customStyle = {
-  width: '90px',
-  height: '80px',
-  backgroundColor: '#222',
-  color: 'white'
+const colors: ColorsType = {
+  "0": "#F0F0F0",
+  "1": "#F0B400",
+  "2": "#008000",
+  "3": "#B46400",
+  "4": "#000080",
+  "5": "#F000F0",
+  "6": "#808080",
+  "7": "#C8C8C8",
+  "8": "#828200",
+  "9": "#C06060",
+  "10": "#090909",
+  "11": "#8C0000",
+  "12": "#A0A0A0",
+  "13": "#F00000",
+  "14": "#00F000",
+  "15": "#F0F000",
+  "16": "#0B0CBD",
+  "17": "#0064F0",
+  "18": "#00F0F0",
+  "19": "#800080",
 };
 
 const SocialKey: React.FC<SocialKeyProps> = ({ iniData, keyNum }) => {
-    console.log('keyNum = ' + keyNum);
-    const pageNum:number = Math.floor((parseInt(keyNum, 10) - 1) / 12) + 1;
-    const buttonNum:number = (parseInt(keyNum, 10) - 1) % 12 + 1;
-    const key:string = 'Page'+pageNum.toString()+'Button'+buttonNum.toString()+'Name';
+  console.log("keyNum = " + keyNum);
+  const pageNum: number = Math.floor((parseInt(keyNum, 10) - 1) / 12) + 1;
+  const buttonNum: number = ((parseInt(keyNum, 10) - 1) % 12) + 1;
+  const nameKey: string =
+    "Page" + pageNum.toString() + "Button" + buttonNum.toString() + "Name";
+  const name: string =
+    "Socials" in iniData && nameKey in iniData["Socials"]
+      ? iniData["Socials"][nameKey]
+      : "-empty-";
 
-    return (
-        <button type="button" draggable="true" style={customStyle}>
-          {'Socials' in iniData && key in iniData['Socials']? iniData['Socials'][key] : "-empty-"}
-        </button>
-    );
-}
+  const colorKey: string =
+    "Page" + pageNum.toString() + "Button" + buttonNum.toString() + "Color";
+  const color: string =
+    "Socials" in iniData && colorKey in iniData["Socials"]
+      ? colors[iniData["Socials"][colorKey]]
+      : colors["0"];
+
+  const customStyle = {
+    width: "90px",
+    height: "80px",
+    backgroundColor: "#211d21",
+    color: color,
+  };
+
+  return (
+    <button type="button" draggable="true" style={customStyle}>
+      {name}
+    </button>
+  );
+};
 
 export default SocialKey;
