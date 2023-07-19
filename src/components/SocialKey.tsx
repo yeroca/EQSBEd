@@ -18,7 +18,7 @@ const SocialKey: React.FC<SocialKeyProps> = ({ iniData, keyNum }) => {
     console.log('buttonNum = ' + buttonNum.toString());
     console.log('key = ' + key);
     return (
-        <button type="button" className="btn" draggable="true">
+        <button type="button" className="btn btn-primary" draggable="true">
           {'Socials' in iniData ? iniData['Socials'][key] : ""}
         </button>
     );
