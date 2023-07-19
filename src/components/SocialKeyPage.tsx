@@ -10,14 +10,37 @@ interface SocialKeyPageProps {
   pageNum: string;
 }
 
-const rows = Array.from(Array(6), (_, i) => i+1);
+const thStyle: React.CSSProperties = {
+  textAlign: "center"
+};
+
+const tableStyle: React.CSSProperties = {
+  borderCollapse: 'collapse', // Optional, to ensure borders collapse together
+  border: '2px solid #333', // Set the border width and color
+};
+
+const rowNums = Array.from(Array(6), (_, i) => i+1);
 
 const SocialKeyPage: React.FC<SocialKeyPageProps> = ({ iniData, pageNum }) => {
     console.log('pageNum = ' + pageNum);
     const pageOffset = (parseInt(pageNum, 10) - 1) * 12;
+
     return (
-        <table className="table table-bordered">
-          { rows.map(row => <tr><td><SocialKey iniData={iniData} keyNum={(pageOffset + row - 1).toString()}></SocialKey></td><td><SocialKey iniData={iniData} keyNum={(pageOffset + row - 1 + 6).toString()}></SocialKey></td></tr> )}
+        <table style={tableStyle}>
+          <thead><tr><th style={thStyle} colSpan={2} scope="colgroup">{pageNum}</th></tr></thead>
+          <tbody>
+          {rowNums.map(rowNum => (
+            <tr>
+              <td>
+                <SocialKey iniData={iniData} keyNum={(pageOffset + rowNum).toString()}></SocialKey>
+              </td>
+              <td>
+                <SocialKey iniData={iniData} keyNum={(pageOffset + rowNum + 6).toString()}></SocialKey>
+              </td>
+            </tr>
+            ))
+          }
+          </tbody>
         </table>
     );
 }

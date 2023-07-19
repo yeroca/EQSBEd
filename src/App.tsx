@@ -19,12 +19,14 @@ const App = () => {
   const pageNums = Array.from(Array(10), (_, i) => i+1);
 
   return (
-    <div className="container">
+    <div className="container ms-2">
       <h1>SKEd <small><mark>the Social Key Editor</mark></small></h1>
       <FileUploader onIniData={updateIniData} />
-      <span>
-        {pageNums.map(pageNum => <SocialKeyPage iniData={iniData} pageNum={pageNum.toString()}></SocialKeyPage>)}
-      </span>
+      <table>
+        <tr>
+          {pageNums.map(pageNum => <td><SocialKeyPage iniData={iniData} pageNum={pageNum.toString()}></SocialKeyPage></td>)}
+        </tr>
+      </table>
     </div>
   );
 };
