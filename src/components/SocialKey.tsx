@@ -55,7 +55,7 @@ const SocialKey: React.FC<SocialKeyProps> = ({
   const name: string =
     "Socials" in iniData && nameKey in iniData["Socials"]
       ? iniData["Socials"][nameKey]
-      : "-empty-";
+      : "-noname-";
 
   const colorKey: string =
     "Page" + pageNum.toString() + "Button" + buttonNum.toString() + "Color";
