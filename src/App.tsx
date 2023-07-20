@@ -16,6 +16,13 @@ const App = () => {
     setIniData(data);
   };
 
+  const handleDrop = (keyNum: string) => {
+    console.log("skp drop key = " + keyNum);
+  };
+  const handleDragEnd = (keyNum: string) => {
+    console.log("skp dragend key = " + keyNum);
+  };
+
   const pageNums = Array.from(Array(10), (_, i) => i + 1);
 
   return (
@@ -35,6 +42,8 @@ const App = () => {
                 <SocialKeyPage
                   iniData={iniData}
                   pageNum={pageNum.toString()}
+                  onDrop={handleDrop}
+                  onDragEnd={handleDragEnd}
                 ></SocialKeyPage>
               </td>
             ))}

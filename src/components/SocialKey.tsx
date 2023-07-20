@@ -7,6 +7,8 @@ interface IniData {
 interface SocialKeyProps {
   iniData: IniData;
   keyNum: string;
+  onDrop: (keyNum: string) => void;
+  onDragEnd: (keyNum: string) => void;
 }
 
 interface ColorsType {
@@ -36,12 +38,20 @@ const colors: ColorsType = {
   "19": "#800080",
 };
 
-const SocialKey: React.FC<SocialKeyProps> = ({ iniData, keyNum }) => {
-  console.log("keyNum = " + keyNum);
+const SocialKey: React.FC<SocialKeyProps> = ({
+  iniData,
+  keyNum,
+  onDrop,
+  onDragEnd,
+}) => {
+  console.log(typeof onDrop);
   const pageNum: number = Math.floor((parseInt(keyNum, 10) - 1) / 12) + 1;
+
   const buttonNum: number = ((parseInt(keyNum, 10) - 1) % 12) + 1;
+
   const nameKey: string =
     "Page" + pageNum.toString() + "Button" + buttonNum.toString() + "Name";
+
   const name: string =
     "Socials" in iniData && nameKey in iniData["Socials"]
       ? iniData["Socials"][nameKey]
@@ -49,6 +59,7 @@ const SocialKey: React.FC<SocialKeyProps> = ({ iniData, keyNum }) => {
 
   const colorKey: string =
     "Page" + pageNum.toString() + "Button" + buttonNum.toString() + "Color";
+
   const color: string =
     "Socials" in iniData && colorKey in iniData["Socials"]
       ? colors[iniData["Socials"][colorKey]]
@@ -61,8 +72,23 @@ const SocialKey: React.FC<SocialKeyProps> = ({ iniData, keyNum }) => {
     color: color,
   };
 
+  const myHandleDrop = () => {
+    onDrop(keyNum);
+  };
+
+  const myHandleDragEnd = () => {
+    onDragEnd(keyNum);
+  };
+
   return (
-    <button type="button" draggable="true" style={customStyle}>
+    <button
+      type="button"
+      draggable="true"
+      style={customStyle}
+      onDragOver={(event) => event.preventDefault()}
+      onDrop={myHandleDrop}
+      onDragEnd={myHandleDragEnd}
+    >
       {name}
     </button>
   );
