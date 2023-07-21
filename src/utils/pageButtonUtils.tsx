@@ -10,6 +10,11 @@ const pageButtonToColorKey = (pageNum: number, buttonNum: number) => {
   return pageButtonToKeyPrefix(pageNum, buttonNum) + "Color";
 };
 
+// calculate the "E"nn, code used in hot key banks.
+const pageButtonToHotButtonIndex = (pageNum: number, button: number) => {
+  return (pageNum - 1) * 12 + button - 1;
+};
+
 const pageButtonToLineKey = (
   pageNum: number,
   buttonNum: number,
@@ -18,4 +23,10 @@ const pageButtonToLineKey = (
   return pageButtonToKeyPrefix(pageNum, buttonNum) + "Line" + lineNum;
 };
 
-export { pageButtonToNameKey, pageButtonToColorKey, pageButtonToLineKey };
+export {
+  pageButtonToKeyPrefix,
+  pageButtonToNameKey,
+  pageButtonToColorKey,
+  pageButtonToLineKey,
+  pageButtonToHotButtonIndex,
+};

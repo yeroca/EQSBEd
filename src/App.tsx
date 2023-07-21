@@ -3,6 +3,10 @@
 import { useState } from "react";
 import FileUploader from "./components/FileUploader";
 import SocialKeyPage from "./components/SocialKeyPage";
+import {
+  pageButtonToHotButtonIndex,
+  pageButtonToKeyPrefix,
+} from "./utils/pageButtonUtils";
 
 interface IniData {
   [section: string]: { [key: string]: string };
@@ -21,6 +25,12 @@ const App = () => {
     buttonNum: number;
   };
 
+  type HotButtonLoc = {
+    bankNum: number;
+    pageNum: number;
+    buttonNum: number;
+  };
+
   const [srcButtonLoc, setSrcButtonLoc] = useState<ButtonLoc>({
     pageNum: -1,
     buttonNum: -1,
@@ -31,6 +41,42 @@ const App = () => {
     buttonNum: -1,
   });
 
+  const onMatchingHotButtons = (
+    button: ButtonLoc,
+    operation: (hotButton: HotButtonLoc) => void
+  ) => {
+    const ePrefix =
+      "E" + pageButtonToHotButtonIndex(button.pageNum, button.buttonNum) + ",";
+
+    for (let hotButtonsBank = 1; hotButtonsBank <= 11; hotButtonsBank++) {
+      for (let hotButtonsPage = 1; hotButtonsPage <= 10; hotButtonsPage++) {
+        for (
+          let hotButtonsButton = 1;
+          hotButtonsButton <= 12;
+          hotButtonsButton++
+        ) {
+          let bankKey =
+            "HotButtons" + (hotButtonsBank === 1 ? "" : hotButtonsBank);
+          if (bankKey in iniData) {
+            const buttonKey = pageButtonToKeyPrefix(
+              hotButtonsPage,
+              hotButtonsButton
+            );
+            if (buttonKey in iniData[bankKey]) {
+              if (iniData[bankKey][buttonKey].startsWith(ePrefix)) {
+                operation({
+                  bankNum: hotButtonsBank,
+                  pageNum: hotButtonsPage,
+                  buttonNum: hotButtonsButton,
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  };
+
   const performAction = (srcButton: ButtonLoc, dstButton: ButtonLoc) => {
     console.log(
       "Action src: " +
@@ -38,6 +84,11 @@ const App = () => {
         "  dst: " +
         JSON.stringify(dstButton)
     );
+    onMatchingHotButtons(srcButton, (button: HotButtonLoc) => {
+      console.log(
+        button.bankNum + ":" + button.pageNum + ":" + button.buttonNum
+      );
+    });
   };
 
   // Drop onto = Destination
