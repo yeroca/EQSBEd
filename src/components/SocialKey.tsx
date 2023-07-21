@@ -1,5 +1,8 @@
 import React from "react";
-import { pageButtonToNameKey, pageButtonToColorKey } from "../utils/keyUtils";
+import {
+  pageButtonToNameKey,
+  pageButtonToColorKey,
+} from "../utils/pageButtonUtils";
 
 interface IniData {
   [section: string]: { [nameKey: string]: string };
