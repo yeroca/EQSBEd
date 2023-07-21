@@ -16,18 +16,58 @@ const App = () => {
     setIniData(data);
   };
 
+  type ButtonLoc = {
+    pageNum: number;
+    buttonNum: number;
+  };
+
+  const [srcButtonLoc, setSrcButtonLoc] = useState<ButtonLoc>({
+    pageNum: -1,
+    buttonNum: -1,
+  });
+
+  const [dstButtonLoc, setDstButtonLoc] = useState<ButtonLoc>({
+    pageNum: -1,
+    buttonNum: -1,
+  });
+
+  const performAction = (srcButton: ButtonLoc, dstButton: ButtonLoc) => {
+    console.log(
+      "Action src: " +
+        JSON.stringify(srcButton) +
+        "  dst: " +
+        JSON.stringify(dstButton)
+    );
+  };
+
   // Drop onto = Destination
   const handleDrop = (pageNum: number, buttonNum: number) => {
-    console.log(
-      "Destination / drop pageNum = " + pageNum + ", buttonNum = " + buttonNum
-    );
+    setDstButtonLoc(() => {
+      if (srcButtonLoc.pageNum !== -1) {
+        // This is the second event, so we know that both the source and destination are set
+        performAction(
+          { pageNum: srcButtonLoc.pageNum, buttonNum: srcButtonLoc.buttonNum },
+          { pageNum: pageNum, buttonNum: buttonNum }
+        );
+        setDstButtonLoc({ pageNum: -1, buttonNum: -1 });
+      }
+      return { pageNum, buttonNum };
+    });
   };
 
   // Dropped = Source
   const handleDragEnd = (pageNum: number, buttonNum: number) => {
-    console.log(
-      "Source / dragend pageNum = " + pageNum + ", buttonNum = " + buttonNum
-    );
+    setSrcButtonLoc(() => {
+      if (dstButtonLoc.pageNum !== -1) {
+        // This is the second event, so we know that both the source and destination are set
+        performAction(
+          { pageNum: pageNum, buttonNum: buttonNum },
+          { pageNum: dstButtonLoc.pageNum, buttonNum: dstButtonLoc.buttonNum }
+        );
+        setSrcButtonLoc({ pageNum: -1, buttonNum: -1 });
+      }
+      return { pageNum, buttonNum };
+    });
   };
 
   const pageNums = Array.from(Array(10), (_, i) => i + 1);
