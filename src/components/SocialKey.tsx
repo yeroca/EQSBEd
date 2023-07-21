@@ -1,4 +1,5 @@
 import React from "react";
+import { pageButtonToNameKey, pageButtonToColorKey } from "../utils/keyUtils";
 
 interface IniData {
   [section: string]: { [nameKey: string]: string };
@@ -6,9 +7,10 @@ interface IniData {
 
 interface SocialKeyProps {
   iniData: IniData;
-  keyNum: string;
-  onDrop: (keyNum: string) => void;
-  onDragEnd: (keyNum: string) => void;
+  pageNum: number;
+  buttonNum: number;
+  onDrop: (buttonNum: number) => void;
+  onDragEnd: (buttonNum: number) => void;
 }
 
 interface ColorsType {
@@ -40,25 +42,22 @@ const colors: ColorsType = {
 
 const SocialKey: React.FC<SocialKeyProps> = ({
   iniData,
-  keyNum,
+  pageNum,
+  buttonNum,
   onDrop,
   onDragEnd,
 }) => {
-  console.log(typeof onDrop);
-  const pageNum: number = Math.floor((parseInt(keyNum, 10) - 1) / 12) + 1;
+  console.log("pageNum = " + pageNum.toString());
+  console.log("buttonNum = " + buttonNum.toString());
 
-  const buttonNum: number = ((parseInt(keyNum, 10) - 1) % 12) + 1;
-
-  const nameKey: string =
-    "Page" + pageNum.toString() + "Button" + buttonNum.toString() + "Name";
+  const nameKey: string = pageButtonToNameKey(pageNum, buttonNum);
 
   const name: string =
     "Socials" in iniData && nameKey in iniData["Socials"]
       ? iniData["Socials"][nameKey]
       : "-noname-";
 
-  const colorKey: string =
-    "Page" + pageNum.toString() + "Button" + buttonNum.toString() + "Color";
+  const colorKey: string = pageButtonToColorKey(pageNum, buttonNum);
 
   const color: string =
     "Socials" in iniData && colorKey in iniData["Socials"]
@@ -73,11 +72,11 @@ const SocialKey: React.FC<SocialKeyProps> = ({
   };
 
   const myHandleDrop = () => {
-    onDrop(keyNum);
+    onDrop(pageNum * 12 + buttonNum);
   };
 
   const myHandleDragEnd = () => {
-    onDragEnd(keyNum);
+    onDragEnd(pageNum * 12 + buttonNum);
   };
 
   return (
