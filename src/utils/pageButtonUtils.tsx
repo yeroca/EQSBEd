@@ -1,5 +1,5 @@
 const pageButtonToKeyPrefix = (pageNum: number, buttonNum: number) => {
-  return "Page" + (pageNum + 1) + "Button" + (buttonNum + 1);
+  return "Page" + pageNum + "Button" + buttonNum;
 };
 
 const pageButtonToNameKey = (pageNum: number, buttonNum: number) => {
@@ -15,7 +15,7 @@ const pageButtonToLineKey = (
   buttonNum: number,
   lineNum: number
 ) => {
-  return pageButtonToKeyPrefix(pageNum, buttonNum) + "Line" + (lineNum + 1);
+  return pageButtonToKeyPrefix(pageNum, buttonNum) + "Line" + lineNum;
 };
 
 export { pageButtonToNameKey, pageButtonToColorKey, pageButtonToLineKey };

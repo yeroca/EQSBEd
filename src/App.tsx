@@ -30,7 +30,7 @@ const App = () => {
     );
   };
 
-  const pageNums = Array.from(Array(10), (_, i) => i);
+  const pageNums = Array.from(Array(10), (_, i) => i + 1);
 
   return (
     <div className="container ms-2">

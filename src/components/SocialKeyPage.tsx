@@ -21,7 +21,7 @@ const tableStyle: React.CSSProperties = {
   border: "2px solid #333", // Set the border width and color
 };
 
-const rowNums = Array.from(Array(6), (_, i) => i);
+const rowNums = Array.from(Array(6), (_, i) => i + 1);
 
 const SocialKeyPage: React.FC<SocialKeyPageProps> = ({
   iniData,
@@ -34,7 +34,7 @@ const SocialKeyPage: React.FC<SocialKeyPageProps> = ({
       <thead>
         <tr>
           <th style={thStyle} colSpan={2} scope="colgroup">
-            {pageNum + 1}
+            {pageNum}
           </th>
         </tr>
       </thead>
