@@ -8,8 +8,8 @@ interface IniData {
 interface SocialKeyPageProps {
   iniData: IniData;
   pageNum: number;
-  onDrop: (keyNum: number) => void;
-  onDragEnd: (keyNum: number) => void;
+  onDrop: (pagNum: number, buttonNum: number) => void;
+  onDragEnd: (pageNum: number, buttonNum: number) => void;
 }
 
 const thStyle: React.CSSProperties = {
@@ -29,8 +29,6 @@ const SocialKeyPage: React.FC<SocialKeyPageProps> = ({
   onDrop,
   onDragEnd,
 }) => {
-  console.log("pageNum = " + pageNum);
-
   return (
     <table style={tableStyle}>
       <thead>

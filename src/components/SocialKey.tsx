@@ -9,8 +9,8 @@ interface SocialKeyProps {
   iniData: IniData;
   pageNum: number;
   buttonNum: number;
-  onDrop: (buttonNum: number) => void;
-  onDragEnd: (buttonNum: number) => void;
+  onDrop: (pageNum: number, buttonNum: number) => void;
+  onDragEnd: (pageNum: number, buttonNum: number) => void;
 }
 
 interface ColorsType {
@@ -47,9 +47,6 @@ const SocialKey: React.FC<SocialKeyProps> = ({
   onDrop,
   onDragEnd,
 }) => {
-  console.log("pageNum = " + pageNum.toString());
-  console.log("buttonNum = " + buttonNum.toString());
-
   const nameKey: string = pageButtonToNameKey(pageNum, buttonNum);
 
   const name: string =
@@ -72,11 +69,11 @@ const SocialKey: React.FC<SocialKeyProps> = ({
   };
 
   const myHandleDrop = () => {
-    onDrop(pageNum * 12 + buttonNum);
+    onDrop(pageNum, buttonNum);
   };
 
   const myHandleDragEnd = () => {
-    onDragEnd(pageNum * 12 + buttonNum);
+    onDragEnd(pageNum, buttonNum);
   };
 
   return (

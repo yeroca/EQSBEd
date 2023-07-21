@@ -16,15 +16,21 @@ const App = () => {
     setIniData(data);
   };
 
-  const handleDrop = (keyNum: number) => {
-    console.log("skp drop key = " + keyNum);
+  // Drop onto = Destination
+  const handleDrop = (pageNum: number, buttonNum: number) => {
+    console.log(
+      "Destination / drop pageNum = " + pageNum + ", buttonNum = " + buttonNum
+    );
   };
-  const handleDragEnd = (keyNum: number) => {
-    console.log("skp dragend key = " + keyNum);
+
+  // Dropped = Source
+  const handleDragEnd = (pageNum: number, buttonNum: number) => {
+    console.log(
+      "Source / dragend pageNum = " + pageNum + ", buttonNum = " + buttonNum
+    );
   };
 
   const pageNums = Array.from(Array(10), (_, i) => i);
-  console.log(pageNums);
 
   return (
     <div className="container ms-2">
