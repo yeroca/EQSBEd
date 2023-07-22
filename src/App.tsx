@@ -7,10 +7,8 @@ import {
   pageButtonToHotButtonIndex,
   pageButtonToKeyPrefix,
 } from "./utils/pageButtonUtils";
-
-interface IniData {
-  [section: string]: { [key: string]: string };
-}
+import IniData from "./IniData";
+import { SocialButtonLoc, HotButtonLoc } from "./buttonTypes";
 
 const App = () => {
   const [iniData, setIniData] = useState<IniData>({});
@@ -20,33 +18,30 @@ const App = () => {
     setIniData(data);
   };
 
-  type ButtonLoc = {
-    pageNum: number;
-    buttonNum: number;
-  };
+  const [srcSocialButtonLoc, setSrcSocialButtonLoc] = useState<SocialButtonLoc>(
+    {
+      pageNum: -1,
+      buttonNum: -1,
+    }
+  );
 
-  type HotButtonLoc = {
-    bankNum: number;
-    pageNum: number;
-    buttonNum: number;
-  };
+  const [dstSocialButtonLoc, setDstSocialButtonLoc] = useState<SocialButtonLoc>(
+    {
+      pageNum: -1,
+      buttonNum: -1,
+    }
+  );
 
-  const [srcButtonLoc, setSrcButtonLoc] = useState<ButtonLoc>({
-    pageNum: -1,
-    buttonNum: -1,
-  });
-
-  const [dstButtonLoc, setDstButtonLoc] = useState<ButtonLoc>({
-    pageNum: -1,
-    buttonNum: -1,
-  });
-
-  const onMatchingHotButtons = (
-    button: ButtonLoc,
+  const onLinkedHotButtons = (
+    button: SocialButtonLoc,
     operation: (hotButton: HotButtonLoc) => void
   ) => {
     const ePrefix =
-      "E" + pageButtonToHotButtonIndex(button.pageNum, button.buttonNum) + ",";
+      "E" +
+      pageButtonToHotButtonIndex({
+        pageNum: button.pageNum,
+        buttonNum: button.buttonNum,
+      });
 
     for (let hotButtonsBank = 1; hotButtonsBank <= 11; hotButtonsBank++) {
       for (let hotButtonsPage = 1; hotButtonsPage <= 10; hotButtonsPage++) {
@@ -58,12 +53,14 @@ const App = () => {
           let bankKey =
             "HotButtons" + (hotButtonsBank === 1 ? "" : hotButtonsBank);
           if (bankKey in iniData) {
-            const buttonKey = pageButtonToKeyPrefix(
-              hotButtonsPage,
-              hotButtonsButton
-            );
+            const buttonKey = pageButtonToKeyPrefix({
+              pageNum: hotButtonsPage,
+              buttonNum: hotButtonsButton,
+            });
             if (buttonKey in iniData[bankKey]) {
-              if (iniData[bankKey][buttonKey].startsWith(ePrefix)) {
+              const value = iniData[bankKey][buttonKey];
+              //console.log("prefix = " + ePrefix + " value = " + value);
+              if (value.startsWith(ePrefix + ",") || value === ePrefix) {
                 operation({
                   bankNum: hotButtonsBank,
                   pageNum: hotButtonsPage,
@@ -77,47 +74,53 @@ const App = () => {
     }
   };
 
-  const performAction = (srcButton: ButtonLoc, dstButton: ButtonLoc) => {
+  const performAction = (
+    srcButton: SocialButtonLoc,
+    dstButton: SocialButtonLoc
+  ) => {
+    let linkedSrcHotButtons: HotButtonLoc[] = [];
+    let linkedDstHotButtons: HotButtonLoc[] = [];
+
     console.log(
       "Action src: " +
         JSON.stringify(srcButton) +
         "  dst: " +
         JSON.stringify(dstButton)
     );
-    onMatchingHotButtons(srcButton, (button: HotButtonLoc) => {
-      console.log(
-        button.bankNum + ":" + button.pageNum + ":" + button.buttonNum
-      );
+    onLinkedHotButtons(srcButton, (button: HotButtonLoc) => {
+      linkedSrcHotButtons.push(button);
     });
+    onLinkedHotButtons(dstButton, (button: HotButtonLoc) => {
+      linkedDstHotButtons.push(button);
+    });
+
+    console.log("src: " + JSON.stringify(linkedSrcHotButtons));
+    console.log("dst: " + JSON.stringify(linkedDstHotButtons));
+
+    // swap
   };
 
   // Drop onto = Destination
-  const handleDrop = (pageNum: number, buttonNum: number) => {
-    setDstButtonLoc(() => {
-      if (srcButtonLoc.pageNum !== -1) {
+  const handleDrop = (buttonLoc: SocialButtonLoc) => {
+    setDstSocialButtonLoc(() => {
+      if (srcSocialButtonLoc.pageNum !== -1) {
         // This is the second event, so we know that both the source and destination are set
-        performAction(
-          { pageNum: srcButtonLoc.pageNum, buttonNum: srcButtonLoc.buttonNum },
-          { pageNum: pageNum, buttonNum: buttonNum }
-        );
-        setDstButtonLoc({ pageNum: -1, buttonNum: -1 });
+        performAction(srcSocialButtonLoc, buttonLoc);
+        setDstSocialButtonLoc({ pageNum: -1, buttonNum: -1 });
       }
-      return { pageNum, buttonNum };
+      return buttonLoc;
     });
   };
 
   // Dropped = Source
-  const handleDragEnd = (pageNum: number, buttonNum: number) => {
-    setSrcButtonLoc(() => {
-      if (dstButtonLoc.pageNum !== -1) {
+  const handleDragEnd = (buttonLoc: SocialButtonLoc) => {
+    setSrcSocialButtonLoc(() => {
+      if (dstSocialButtonLoc.pageNum !== -1) {
         // This is the second event, so we know that both the source and destination are set
-        performAction(
-          { pageNum: pageNum, buttonNum: buttonNum },
-          { pageNum: dstButtonLoc.pageNum, buttonNum: dstButtonLoc.buttonNum }
-        );
-        setSrcButtonLoc({ pageNum: -1, buttonNum: -1 });
+        performAction(buttonLoc, dstSocialButtonLoc);
+        setSrcSocialButtonLoc({ pageNum: -1, buttonNum: -1 });
       }
-      return { pageNum, buttonNum };
+      return buttonLoc;
     });
   };
 

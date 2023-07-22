@@ -3,17 +3,14 @@ import {
   pageButtonToNameKey,
   pageButtonToColorKey,
 } from "../utils/pageButtonUtils";
-
-interface IniData {
-  [section: string]: { [nameKey: string]: string };
-}
+import IniData from "../IniData";
+import { SocialButtonLoc } from "../buttonTypes";
 
 interface SocialKeyProps {
   iniData: IniData;
-  pageNum: number;
-  buttonNum: number;
-  onDrop: (pageNum: number, buttonNum: number) => void;
-  onDragEnd: (pageNum: number, buttonNum: number) => void;
+  buttonLoc: SocialButtonLoc;
+  onDrop: (buttonLoc: SocialButtonLoc) => void;
+  onDragEnd: (buttonLoc: SocialButtonLoc) => void;
 }
 
 interface ColorsType {
@@ -45,19 +42,18 @@ const colors: ColorsType = {
 
 const SocialKey: React.FC<SocialKeyProps> = ({
   iniData,
-  pageNum,
-  buttonNum,
+  buttonLoc,
   onDrop,
   onDragEnd,
 }) => {
-  const nameKey: string = pageButtonToNameKey(pageNum, buttonNum);
+  const nameKey: string = pageButtonToNameKey(buttonLoc);
 
   const name: string =
     "Socials" in iniData && nameKey in iniData["Socials"]
       ? iniData["Socials"][nameKey]
       : "-noname-";
 
-  const colorKey: string = pageButtonToColorKey(pageNum, buttonNum);
+  const colorKey: string = pageButtonToColorKey(buttonLoc);
 
   const color: string =
     "Socials" in iniData && colorKey in iniData["Socials"]
@@ -72,11 +68,11 @@ const SocialKey: React.FC<SocialKeyProps> = ({
   };
 
   const myHandleDrop = () => {
-    onDrop(pageNum, buttonNum);
+    onDrop(buttonLoc);
   };
 
   const myHandleDragEnd = () => {
-    onDragEnd(pageNum, buttonNum);
+    onDragEnd(buttonLoc);
   };
 
   return (

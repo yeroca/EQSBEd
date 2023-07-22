@@ -1,15 +1,13 @@
 import React from "react";
 import SocialKey from "./SocialKey";
-
-interface IniData {
-  [section: string]: { [key: string]: string };
-}
+import IniData from "../IniData";
+import { SocialButtonLoc } from "../buttonTypes";
 
 interface SocialKeyPageProps {
   iniData: IniData;
   pageNum: number;
-  onDrop: (pagNum: number, buttonNum: number) => void;
-  onDragEnd: (pageNum: number, buttonNum: number) => void;
+  onDrop: (buttonLoc: SocialButtonLoc) => void;
+  onDragEnd: (buttonLoc: SocialButtonLoc) => void;
 }
 
 const thStyle: React.CSSProperties = {
@@ -44,8 +42,7 @@ const SocialKeyPage: React.FC<SocialKeyPageProps> = ({
             <td>
               <SocialKey
                 iniData={iniData}
-                pageNum={pageNum}
-                buttonNum={rowNum}
+                buttonLoc={{ pageNum: pageNum, buttonNum: rowNum }}
                 onDrop={onDrop}
                 onDragEnd={onDragEnd}
               ></SocialKey>
@@ -53,8 +50,7 @@ const SocialKeyPage: React.FC<SocialKeyPageProps> = ({
             <td>
               <SocialKey
                 iniData={iniData}
-                pageNum={pageNum}
-                buttonNum={rowNum + 6}
+                buttonLoc={{ pageNum: pageNum, buttonNum: rowNum + 6 }}
                 onDrop={onDrop}
                 onDragEnd={onDragEnd}
               ></SocialKey>

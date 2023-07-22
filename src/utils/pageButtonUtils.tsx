@@ -1,26 +1,24 @@
-const pageButtonToKeyPrefix = (pageNum: number, buttonNum: number) => {
-  return "Page" + pageNum + "Button" + buttonNum;
+import { HotButtonLoc, SocialButtonLoc } from "../buttonTypes";
+
+const pageButtonToKeyPrefix = (buttonLoc: SocialButtonLoc | HotButtonLoc) => {
+  return "Page" + buttonLoc.pageNum + "Button" + buttonLoc.buttonNum;
 };
 
-const pageButtonToNameKey = (pageNum: number, buttonNum: number) => {
-  return pageButtonToKeyPrefix(pageNum, buttonNum) + "Name";
+const pageButtonToNameKey = (buttonLoc: SocialButtonLoc) => {
+  return pageButtonToKeyPrefix(buttonLoc) + "Name";
 };
 
-const pageButtonToColorKey = (pageNum: number, buttonNum: number) => {
-  return pageButtonToKeyPrefix(pageNum, buttonNum) + "Color";
+const pageButtonToColorKey = (buttonLoc: SocialButtonLoc) => {
+  return pageButtonToKeyPrefix(buttonLoc) + "Color";
 };
 
-// calculate the "E"nn, code used in hot key banks.
-const pageButtonToHotButtonIndex = (pageNum: number, button: number) => {
-  return (pageNum - 1) * 12 + button - 1;
+// calculate the "E"nn code used in hot key banks.
+const pageButtonToHotButtonIndex = (buttonLoc: SocialButtonLoc) => {
+  return (buttonLoc.pageNum - 1) * 12 + buttonLoc.buttonNum - 1;
 };
 
-const pageButtonToLineKey = (
-  pageNum: number,
-  buttonNum: number,
-  lineNum: number
-) => {
-  return pageButtonToKeyPrefix(pageNum, buttonNum) + "Line" + lineNum;
+const pageButtonToLineKey = (buttonLoc: SocialButtonLoc, lineNum: number) => {
+  return pageButtonToKeyPrefix(buttonLoc) + "Line" + lineNum;
 };
 
 export {
