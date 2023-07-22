@@ -99,6 +99,7 @@ const App = () => {
 
     // swap
     const srcButtonData = loadSocialKeyData(srcButton, iniData);
+    console.log("src: " + JSON.stringify(srcButtonData));
     const dstButtonData = loadSocialKeyData(dstButton, iniData);
 
     const newIniData = JSON.parse(JSON.stringify(iniData));
