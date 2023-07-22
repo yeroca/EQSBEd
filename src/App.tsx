@@ -9,13 +9,20 @@ import {
 } from "./utils/pageButtonUtils";
 import IniData from "./IniData";
 import { SocialButtonLoc, HotButtonLoc } from "./buttonTypes";
+import {
+  loadSocialKeyData,
+  storeSocialKeyData,
+} from "./utils/socialKeyDataUtils";
+import dumpHash from "./utils/dumpHash";
 
 const App = () => {
   const [iniData, setIniData] = useState<IniData>({});
+  const [renderCounter, setRenderCounter] = useState<number>(0);
 
   // Function to update the parent's state with processed INI data
   const updateIniData = (data: IniData) => {
     setIniData(data);
+    console.log(dumpHash("updateIniData hash: ", data));
   };
 
   const [srcSocialButtonLoc, setSrcSocialButtonLoc] = useState<SocialButtonLoc>(
@@ -94,10 +101,28 @@ const App = () => {
       linkedDstHotButtons.push(button);
     });
 
-    console.log("src: " + JSON.stringify(linkedSrcHotButtons));
-    console.log("dst: " + JSON.stringify(linkedDstHotButtons));
-
     // swap
+    const srcButtonData = loadSocialKeyData(srcButton, iniData);
+    const dstButtonData = loadSocialKeyData(dstButton, iniData);
+
+    //console.log("src: " + JSON.stringify(linkedSrcHotButtons));
+    //console.log("dst: " + JSON.stringify(linkedDstHotButtons));
+    console.log("src befor = " + JSON.stringify(srcButtonData));
+    console.log("dst befor = " + JSON.stringify(dstButtonData));
+
+    dumpHash("before: ", iniData);
+
+    storeSocialKeyData(srcButton, dstButtonData, iniData);
+    storeSocialKeyData(dstButton, srcButtonData, iniData);
+    setIniData(iniData);
+    //setRenderCounter(renderCounter + 1);
+
+    const srcButtonDataAfter = loadSocialKeyData(srcButton, iniData);
+    const dstButtonDataAfter = loadSocialKeyData(dstButton, iniData);
+
+    console.log("src after = " + JSON.stringify(srcButtonDataAfter));
+    console.log("dst after = " + JSON.stringify(dstButtonDataAfter));
+    dumpHash("after: ", iniData);
   };
 
   // Drop onto = Destination
@@ -125,6 +150,9 @@ const App = () => {
   };
 
   const pageNums = Array.from(Array(10), (_, i) => i + 1);
+
+  console.log("Render app");
+  dumpHash("hash in App: ", iniData);
 
   return (
     <div className="container ms-2">

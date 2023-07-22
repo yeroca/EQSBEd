@@ -11,15 +11,35 @@ const loadSocialKeyData = (
   buttonLoc: SocialButtonLoc,
   iniData: IniData
 ): SocialButtonData => {
-  return {
-    name: iniData["Socials"][pageButtonToNameKey(buttonLoc)],
-    color: iniData["Socials"][pageButtonToColorKey(buttonLoc)],
-    lines: Array.from(
-      Array(5),
-      (_, lineNum) =>
-        iniData["Socials"][pageButtonToLineKey(buttonLoc, lineNum)]
-    ),
-  };
+  if ("Socials" in iniData) {
+    return {
+      name: iniData["Socials"][pageButtonToNameKey(buttonLoc)],
+      color: iniData["Socials"][pageButtonToColorKey(buttonLoc)],
+      lines: Array.from(
+        Array(5),
+        (_, idx) => iniData["Socials"][pageButtonToLineKey(buttonLoc, idx + 1)]
+      ),
+    };
+  } else {
+    return {
+      name: "",
+      color: "",
+      lines: [],
+    };
+  }
 };
 
-export default loadSocialKeyData;
+const storeSocialKeyData = (
+  buttonLoc: SocialButtonLoc,
+  socialData: SocialButtonData,
+  iniData: IniData
+): void => {
+  iniData["Socials"][pageButtonToNameKey(buttonLoc)] = socialData.name;
+  iniData["Socials"][pageButtonToColorKey(buttonLoc)] = socialData.color;
+  for (let lineNum = 1; lineNum <= 5; lineNum++) {
+    iniData["Socials"][pageButtonToLineKey(buttonLoc, lineNum)] =
+      socialData.lines[lineNum - 1];
+  }
+};
+
+export { loadSocialKeyData, storeSocialKeyData };
