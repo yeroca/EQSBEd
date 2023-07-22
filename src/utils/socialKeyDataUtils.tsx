@@ -16,11 +16,11 @@ const loadSocialKeyData = (
     const colorKey = pageButtonToColorKey(buttonLoc);
 
     return {
-      name: nameKey in iniData["Socials"] ? iniData["Socials"][nameKey] : "",
-      color: colorKey in iniData["Socials"] ? iniData["Socials"][colorKey] : "",
+      name: nameKey in iniData.Socials ? iniData.Socials[nameKey] : "",
+      color: colorKey in iniData.Socials ? iniData.Socials[colorKey] : "",
       lines: Array.from(Array(5), (_, idx) =>
-        pageButtonToLineKey(buttonLoc, idx + 1) in iniData["Socials"]
-          ? iniData["Socials"][pageButtonToLineKey(buttonLoc, idx + 1)]
+        pageButtonToLineKey(buttonLoc, idx + 1) in iniData.Socials
+          ? iniData.Socials[pageButtonToLineKey(buttonLoc, idx + 1)]
           : ""
       ),
     };
@@ -39,18 +39,22 @@ const storeSocialKeyData = (
   iniData: IniData
 ): void => {
   if (socialData.name === "") {
-    delete iniData["Socials"][pageButtonToNameKey(buttonLoc)];
+    delete iniData.Socials[pageButtonToNameKey(buttonLoc)];
   } else {
-    iniData["Socials"][pageButtonToNameKey(buttonLoc)] = socialData.name;
+    iniData.Socials[pageButtonToNameKey(buttonLoc)] = socialData.name;
   }
   if (socialData.color === "") {
-    delete iniData["Socials"][pageButtonToColorKey(buttonLoc)];
+    delete iniData.Socials[pageButtonToColorKey(buttonLoc)];
   } else {
-    iniData["Socials"][pageButtonToColorKey(buttonLoc)] = socialData.color;
+    iniData.Socials[pageButtonToColorKey(buttonLoc)] = socialData.color;
   }
   for (let lineNum = 1; lineNum <= 5; lineNum++) {
-    iniData["Socials"][pageButtonToLineKey(buttonLoc, lineNum)] =
-      socialData.lines[lineNum - 1];
+    if (socialData.lines[lineNum - 1] === "") {
+      delete iniData.Socials[pageButtonToLineKey(buttonLoc, lineNum)];
+    } else {
+      iniData.Socials[pageButtonToLineKey(buttonLoc, lineNum)] =
+        socialData.lines[lineNum - 1];
+    }
   }
 };
 
