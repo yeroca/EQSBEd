@@ -10,9 +10,9 @@ import {
 import IniData from "./IniData";
 import { SocialButtonLoc, HotButtonLoc } from "./buttonTypes";
 import {
-  loadSocialKeyData,
-  storeSocialKeyData,
-} from "./utils/socialKeyDataUtils";
+  loadSocialButtonData,
+  storeSocialButtonData,
+} from "./utils/socialButtonDataUtils";
 
 //import dumpHash from "./utils/dumpHash";
 
@@ -98,14 +98,14 @@ const App = () => {
     });
 
     // swap
-    const srcButtonData = loadSocialKeyData(srcButton, iniData);
+    const srcButtonData = loadSocialButtonData(srcButton, iniData);
     console.log("src: " + JSON.stringify(srcButtonData));
-    const dstButtonData = loadSocialKeyData(dstButton, iniData);
+    const dstButtonData = loadSocialButtonData(dstButton, iniData);
 
     const newIniData = JSON.parse(JSON.stringify(iniData));
 
-    storeSocialKeyData(srcButton, dstButtonData, newIniData);
-    storeSocialKeyData(dstButton, srcButtonData, newIniData);
+    storeSocialButtonData(srcButton, dstButtonData, newIniData);
+    storeSocialButtonData(dstButton, srcButtonData, newIniData);
 
     setIniData(newIniData);
   };

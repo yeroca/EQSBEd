@@ -7,7 +7,7 @@ import {
   pageButtonToLineKey,
 } from "./pageButtonUtils";
 
-const loadSocialKeyData = (
+const loadSocialButtonData = (
   buttonLoc: SocialButtonLoc,
   iniData: IniData
 ): SocialButtonData => {
@@ -33,7 +33,7 @@ const loadSocialKeyData = (
   }
 };
 
-const storeSocialKeyData = (
+const storeSocialButtonData = (
   buttonLoc: SocialButtonLoc,
   socialData: SocialButtonData,
   iniData: IniData
@@ -58,4 +58,4 @@ const storeSocialKeyData = (
   }
 };
 
-export { loadSocialKeyData, storeSocialKeyData };
+export { loadSocialButtonData, storeSocialButtonData };
