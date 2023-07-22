@@ -13,17 +13,13 @@ import {
   loadSocialKeyData,
   storeSocialKeyData,
 } from "./utils/socialKeyDataUtils";
-import dumpHash from "./utils/dumpHash";
+
+//import dumpHash from "./utils/dumpHash";
+
+const pageNums = Array.from(Array(10), (_, i) => i + 1);
 
 const App = () => {
   const [iniData, setIniData] = useState<IniData>({});
-  const [renderCounter, setRenderCounter] = useState<number>(0);
-
-  // Function to update the parent's state with processed INI data
-  const updateIniData = (data: IniData) => {
-    setIniData(data);
-    console.log(dumpHash("updateIniData hash: ", data));
-  };
 
   const [srcSocialButtonLoc, setSrcSocialButtonLoc] = useState<SocialButtonLoc>(
     {
@@ -66,7 +62,7 @@ const App = () => {
             });
             if (buttonKey in iniData[bankKey]) {
               const value = iniData[bankKey][buttonKey];
-              //console.log("prefix = " + ePrefix + " value = " + value);
+
               if (value.startsWith(ePrefix + ",") || value === ePrefix) {
                 operation({
                   bankNum: hotButtonsBank,
@@ -105,24 +101,12 @@ const App = () => {
     const srcButtonData = loadSocialKeyData(srcButton, iniData);
     const dstButtonData = loadSocialKeyData(dstButton, iniData);
 
-    //console.log("src: " + JSON.stringify(linkedSrcHotButtons));
-    //console.log("dst: " + JSON.stringify(linkedDstHotButtons));
-    console.log("src befor = " + JSON.stringify(srcButtonData));
-    console.log("dst befor = " + JSON.stringify(dstButtonData));
+    const newIniData = JSON.parse(JSON.stringify(iniData));
 
-    dumpHash("before: ", iniData);
+    storeSocialKeyData(srcButton, dstButtonData, newIniData);
+    storeSocialKeyData(dstButton, srcButtonData, newIniData);
 
-    storeSocialKeyData(srcButton, dstButtonData, iniData);
-    storeSocialKeyData(dstButton, srcButtonData, iniData);
-    setIniData(iniData);
-    //setRenderCounter(renderCounter + 1);
-
-    const srcButtonDataAfter = loadSocialKeyData(srcButton, iniData);
-    const dstButtonDataAfter = loadSocialKeyData(dstButton, iniData);
-
-    console.log("src after = " + JSON.stringify(srcButtonDataAfter));
-    console.log("dst after = " + JSON.stringify(dstButtonDataAfter));
-    dumpHash("after: ", iniData);
+    setIniData(newIniData);
   };
 
   // Drop onto = Destination
@@ -149,17 +133,15 @@ const App = () => {
     });
   };
 
-  const pageNums = Array.from(Array(10), (_, i) => i + 1);
-
-  console.log("Render app");
-  dumpHash("hash in App: ", iniData);
+  //console.log("Render app");
+  //dumpHash("hash in App: ", iniData);
 
   return (
     <div className="container ms-2">
       <h1>
         <mark>EQ Social Button Editor</mark>
       </h1>
-      <FileUploader onIniData={updateIniData} />
+      <FileUploader onIniData={setIniData} />
       <table>
         <tbody>
           <tr>

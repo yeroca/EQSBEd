@@ -2,7 +2,7 @@ import React from "react";
 import SocialButton from "./SocialButton";
 import IniData from "../IniData";
 import { SocialButtonLoc } from "../buttonTypes";
-import dumpHash from "../utils/dumpHash";
+//import dumpHash from "../utils/dumpHash";
 
 interface SocialButtonPageProps {
   iniData: IniData;
@@ -28,10 +28,10 @@ const SocialButtonPage: React.FC<SocialButtonPageProps> = ({
   onDrop,
   onDragEnd,
 }) => {
-  console.log("Render SocialButtonPage " + pageNum);
-  if (iniData) {
-    console.log(dumpHash(" in SocialKey hash: ", iniData));
-  }
+  //console.log("Render SocialButtonPage " + pageNum);
+  //if (iniData) {
+  //  console.log(dumpHash(" in SocialKey hash: ", iniData));
+  //}
   return (
     <table style={tableStyle}>
       <thead>
