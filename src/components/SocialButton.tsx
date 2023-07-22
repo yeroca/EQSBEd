@@ -6,7 +6,7 @@ import {
 import IniData from "../IniData";
 import { SocialButtonLoc } from "../buttonTypes";
 
-interface SocialKeyProps {
+interface SocialButtonProps {
   iniData: IniData;
   buttonLoc: SocialButtonLoc;
   onDrop: (buttonLoc: SocialButtonLoc) => void;
@@ -40,7 +40,7 @@ const colors: ColorsType = {
   "19": "#800080",
 };
 
-const SocialKey: React.FC<SocialKeyProps> = ({
+const SocialButton: React.FC<SocialButtonProps> = ({
   iniData,
   buttonLoc,
   onDrop,
@@ -89,4 +89,4 @@ const SocialKey: React.FC<SocialKeyProps> = ({
   );
 };
 
-export default SocialKey;
+export default SocialButton;

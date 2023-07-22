@@ -2,7 +2,7 @@
 // ParentComponent.js
 import { useState } from "react";
 import FileUploader from "./components/FileUploader";
-import SocialKeyPage from "./components/SocialKeyPage";
+import SocialButtonPage from "./components/SocialButtonPage";
 import {
   pageButtonToHotButtonIndex,
   pageButtonToKeyPrefix,
@@ -129,10 +129,7 @@ const App = () => {
   return (
     <div className="container ms-2">
       <h1>
-        SKEd{" "}
-        <small>
-          <mark>the Social Key Editor</mark>
-        </small>
+        <mark>EQ Social Button Editor</mark>
       </h1>
       <FileUploader onIniData={updateIniData} />
       <table>
@@ -140,12 +137,12 @@ const App = () => {
           <tr>
             {pageNums.map((pageNum) => (
               <td>
-                <SocialKeyPage
+                <SocialButtonPage
                   iniData={iniData}
                   pageNum={pageNum}
                   onDrop={handleDrop}
                   onDragEnd={handleDragEnd}
-                ></SocialKeyPage>
+                ></SocialButtonPage>
               </td>
             ))}
           </tr>

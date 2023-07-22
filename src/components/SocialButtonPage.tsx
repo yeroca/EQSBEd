@@ -1,9 +1,9 @@
 import React from "react";
-import SocialKey from "./SocialKey";
+import SocialButton from "./SocialButton";
 import IniData from "../IniData";
 import { SocialButtonLoc } from "../buttonTypes";
 
-interface SocialKeyPageProps {
+interface SocialButtonPageProps {
   iniData: IniData;
   pageNum: number;
   onDrop: (buttonLoc: SocialButtonLoc) => void;
@@ -21,7 +21,7 @@ const tableStyle: React.CSSProperties = {
 
 const rowNums = Array.from(Array(6), (_, i) => i + 1);
 
-const SocialKeyPage: React.FC<SocialKeyPageProps> = ({
+const SocialButtonPage: React.FC<SocialButtonPageProps> = ({
   iniData,
   pageNum,
   onDrop,
@@ -40,20 +40,20 @@ const SocialKeyPage: React.FC<SocialKeyPageProps> = ({
         {rowNums.map((rowNum) => (
           <tr>
             <td>
-              <SocialKey
+              <SocialButton
                 iniData={iniData}
                 buttonLoc={{ pageNum: pageNum, buttonNum: rowNum }}
                 onDrop={onDrop}
                 onDragEnd={onDragEnd}
-              ></SocialKey>
+              ></SocialButton>
             </td>
             <td>
-              <SocialKey
+              <SocialButton
                 iniData={iniData}
                 buttonLoc={{ pageNum: pageNum, buttonNum: rowNum + 6 }}
                 onDrop={onDrop}
                 onDragEnd={onDragEnd}
-              ></SocialKey>
+              ></SocialButton>
             </td>
           </tr>
         ))}
@@ -62,4 +62,4 @@ const SocialKeyPage: React.FC<SocialKeyPageProps> = ({
   );
 };
 
-export default SocialKeyPage;
+export default SocialButtonPage;
