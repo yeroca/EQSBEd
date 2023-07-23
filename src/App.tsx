@@ -15,6 +15,7 @@ import {
 } from "./utils/hotButtonDataUtils";
 import FileDownloader from "./components/FileDownloader";
 import HotButtonData from "./HotButtonData";
+import Alert from "./components/Alert";
 
 //import dumpHash from "./utils/dumpHash";
 
@@ -140,7 +141,8 @@ const App = () => {
   return (
     <div className="container ms-2">
       <h1>
-        <mark>EQ Social Button Editor</mark>
+        <mark>Sock Drawer</mark>
+        <small> an EQ Social Button Editor - Alpha 0.1</small>
       </h1>
       <FileUploader onIniData={setIniData} onFileName={fileNameHandler} />
       <table>
@@ -159,6 +161,11 @@ const App = () => {
           </tr>
         </tbody>
       </table>
+      <Alert
+        message="
+        Make a backup copy of your original .ini file before using the one
+        created here"
+      />
       <FileDownloader iniData={iniData} fileName={fileName} />
     </div>
   );
