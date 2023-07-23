@@ -14,6 +14,7 @@ import {
   onLinkedHotButtons,
 } from "./utils/hotButtonDataUtils";
 import FileDownloader from "./components/FileDownloader";
+import HotButtonData from "./HotButtonData";
 
 //import dumpHash from "./utils/dumpHash";
 
@@ -41,8 +42,8 @@ const App = () => {
     srcButton: SocialButtonLoc,
     dstButton: SocialButtonLoc
   ) => {
-    let linkedSrcHotButtons: HotButtonLoc[] = [];
-    let linkedDstHotButtons: HotButtonLoc[] = [];
+    let linkedSrcHotButtons: HotButtonData[] = [];
+    let linkedDstHotButtons: HotButtonData[] = [];
 
     console.log(
       "Action src: " +
@@ -52,15 +53,15 @@ const App = () => {
     );
     onLinkedHotButtons(
       srcButton,
-      (button: HotButtonLoc) => {
-        linkedSrcHotButtons.push(button);
+      (button: HotButtonLoc, suffix: string) => {
+        linkedSrcHotButtons.push({ hotButtonLoc: button, suffix: suffix });
       },
       iniData
     );
     onLinkedHotButtons(
       dstButton,
-      (button: HotButtonLoc) => {
-        linkedDstHotButtons.push(button);
+      (button: HotButtonLoc, suffix: string) => {
+        linkedDstHotButtons.push({ hotButtonLoc: button, suffix: suffix });
       },
       iniData
     );
@@ -70,12 +71,14 @@ const App = () => {
     const newIniData = JSON.parse(JSON.stringify(iniData));
 
     const srcButtonData = loadSocialButtonData(srcButton, newIniData);
-    console.log("src: " + JSON.stringify(srcButtonData));
+    //console.log("src: " + JSON.stringify(srcButtonData));
     const dstButtonData = loadSocialButtonData(dstButton, newIniData);
 
     storeSocialButtonData(srcButton, dstButtonData, newIniData);
     storeSocialButtonData(dstButton, srcButtonData, newIniData);
 
+    // Fix the hot buttons
+    //console.log("linkedSrctHotButtons: " + JSON.stringify(linkedSrcHotButtons));
     for (let linkedSrcHotButton of linkedSrcHotButtons) {
       console.log(
         "linking " +
@@ -85,6 +88,7 @@ const App = () => {
       );
       linkHotButtonToSocialButton(linkedSrcHotButton, dstButton, newIniData);
     }
+    //console.log("linkedDstHotButtons: " + JSON.stringify(linkedDstHotButtons));
     for (let linkedDstHotButton of linkedDstHotButtons) {
       console.log(
         "linking " +
@@ -126,7 +130,7 @@ const App = () => {
   //dumpHash("hash in App: ", iniData);
 
   const fileNameHandler = (name: string) => {
-    console.log("FNH name: " + name);
+    //console.log("FNH name: " + name);
 
     // force new object to be created
     const newName: string = (" " + name).slice(1);

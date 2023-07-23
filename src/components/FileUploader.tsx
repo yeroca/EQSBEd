@@ -17,7 +17,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     if (!file) return;
 
     // remove any numbered suffix, like (2)
-    const re = / \([0-9]+\).ini$/;
+    const re = / ?\([0-9]+\).ini$/;
     onFileName(file.name.replace(re, ".ini"));
     const reader = new FileReader();
     reader.onload = (e) => {

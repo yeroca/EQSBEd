@@ -1,8 +1,8 @@
 import { SocialButtonLoc, HotButtonLoc } from "../ButtonTypes";
+import HotButtonData from "../HotButtonData";
 
 import {
   pageButtonToHotButtonIndex,
-  pageButtonToNameKey,
   pageButtonToKeyPrefix,
 } from "./pageButtonUtils";
 
@@ -12,9 +12,11 @@ const hotBarToKey = (hotBarNum: number): string => {
   return "HotButtons" + (hotBarNum === 1 ? "" : hotBarNum);
 };
 
+const re = /E[0-9]+/;
+
 const onLinkedHotButtons = (
   socialButton: SocialButtonLoc,
-  operation: (hotButton: HotButtonLoc) => void,
+  operation: (hotButton: HotButtonLoc, suffix: string) => void,
   iniData: IniData
 ): void => {
   const ePrefix = "E" + pageButtonToHotButtonIndex(socialButton);
@@ -35,11 +37,15 @@ const onLinkedHotButtons = (
             const value = iniData[barKey][buttonKey];
 
             if (value.startsWith(ePrefix + ",") || value === ePrefix) {
-              operation({
-                barNum: hotButtonsBar,
-                pageNum: hotButtonsPage,
-                buttonNum: hotButtonsButton,
-              });
+              console.log("suffix: " + value.replace(re, ""));
+              operation(
+                {
+                  barNum: hotButtonsBar,
+                  pageNum: hotButtonsPage,
+                  buttonNum: hotButtonsButton,
+                },
+                value.replace(re, "")
+              );
             }
           }
         }
@@ -48,34 +54,15 @@ const onLinkedHotButtons = (
   }
 };
 
-const genEcodeValue = (
-  socialButton: SocialButtonLoc,
-  iniData: IniData
-): string => {
-  const nameKey = pageButtonToNameKey(socialButton);
-  const name =
-    "Socials" in iniData && nameKey in iniData.Socials
-      ? iniData.Socials[nameKey]
-      : "";
-  return (
-    "E" +
-    pageButtonToHotButtonIndex(socialButton) +
-    "@-1,0000000000000000,0," +
-    name +
-    ","
-  );
-};
-
 const linkHotButtonToSocialButton = (
-  hotButton: HotButtonLoc,
+  hotButton: HotButtonData,
   socialButton: SocialButtonLoc,
   iniData: IniData
 ): void => {
-  let barKey = hotBarToKey(hotButton.barNum);
-  iniData[barKey][pageButtonToKeyPrefix(hotButton)] = genEcodeValue(
-    socialButton,
-    iniData
-  );
+  //console.log("hb: " + JSON.stringify(hotButton));
+  let barKey = hotBarToKey(hotButton.hotButtonLoc.barNum);
+  iniData[barKey][pageButtonToKeyPrefix(hotButton.hotButtonLoc)] =
+    "E" + pageButtonToHotButtonIndex(socialButton) + hotButton.suffix;
 };
 
 export { onLinkedHotButtons, linkHotButtonToSocialButton };
