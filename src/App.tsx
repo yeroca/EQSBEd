@@ -3,16 +3,17 @@
 import { useState } from "react";
 import FileUploader from "./components/FileUploader";
 import SocialButtonPage from "./components/SocialButtonPage";
-import {
-  pageButtonToHotButtonIndex,
-  pageButtonToKeyPrefix,
-} from "./utils/pageButtonUtils";
 import IniData from "./IniData";
 import { SocialButtonLoc, HotButtonLoc } from "./buttonTypes";
 import {
   loadSocialButtonData,
   storeSocialButtonData,
 } from "./utils/socialButtonDataUtils";
+import {
+  linkHotButtonToSocialButton,
+  onLinkedHotButtons,
+} from "./utils/hotButtonDataUtils";
+import FileDownloader from "./components/FileDownloader";
 
 //import dumpHash from "./utils/dumpHash";
 
@@ -20,6 +21,7 @@ const pageNums = Array.from(Array(10), (_, i) => i + 1);
 
 const App = () => {
   const [iniData, setIniData] = useState<IniData>({});
+  const [fileName, setFileName] = useState<string>("");
 
   const [srcSocialButtonLoc, setSrcSocialButtonLoc] = useState<SocialButtonLoc>(
     {
@@ -35,48 +37,6 @@ const App = () => {
     }
   );
 
-  const onLinkedHotButtons = (
-    button: SocialButtonLoc,
-    operation: (hotButton: HotButtonLoc) => void
-  ) => {
-    const ePrefix =
-      "E" +
-      pageButtonToHotButtonIndex({
-        pageNum: button.pageNum,
-        buttonNum: button.buttonNum,
-      });
-
-    for (let hotButtonsBank = 1; hotButtonsBank <= 11; hotButtonsBank++) {
-      for (let hotButtonsPage = 1; hotButtonsPage <= 10; hotButtonsPage++) {
-        for (
-          let hotButtonsButton = 1;
-          hotButtonsButton <= 12;
-          hotButtonsButton++
-        ) {
-          let bankKey =
-            "HotButtons" + (hotButtonsBank === 1 ? "" : hotButtonsBank);
-          if (bankKey in iniData) {
-            const buttonKey = pageButtonToKeyPrefix({
-              pageNum: hotButtonsPage,
-              buttonNum: hotButtonsButton,
-            });
-            if (buttonKey in iniData[bankKey]) {
-              const value = iniData[bankKey][buttonKey];
-
-              if (value.startsWith(ePrefix + ",") || value === ePrefix) {
-                operation({
-                  bankNum: hotButtonsBank,
-                  pageNum: hotButtonsPage,
-                  buttonNum: hotButtonsButton,
-                });
-              }
-            }
-          }
-        }
-      }
-    }
-  };
-
   const performAction = (
     srcButton: SocialButtonLoc,
     dstButton: SocialButtonLoc
@@ -90,22 +50,50 @@ const App = () => {
         "  dst: " +
         JSON.stringify(dstButton)
     );
-    onLinkedHotButtons(srcButton, (button: HotButtonLoc) => {
-      linkedSrcHotButtons.push(button);
-    });
-    onLinkedHotButtons(dstButton, (button: HotButtonLoc) => {
-      linkedDstHotButtons.push(button);
-    });
+    onLinkedHotButtons(
+      srcButton,
+      (button: HotButtonLoc) => {
+        linkedSrcHotButtons.push(button);
+      },
+      iniData
+    );
+    onLinkedHotButtons(
+      dstButton,
+      (button: HotButtonLoc) => {
+        linkedDstHotButtons.push(button);
+      },
+      iniData
+    );
 
-    // swap
-    const srcButtonData = loadSocialButtonData(srcButton, iniData);
-    console.log("src: " + JSON.stringify(srcButtonData));
-    const dstButtonData = loadSocialButtonData(dstButton, iniData);
+    // swap the social key data
 
     const newIniData = JSON.parse(JSON.stringify(iniData));
 
+    const srcButtonData = loadSocialButtonData(srcButton, newIniData);
+    console.log("src: " + JSON.stringify(srcButtonData));
+    const dstButtonData = loadSocialButtonData(dstButton, newIniData);
+
     storeSocialButtonData(srcButton, dstButtonData, newIniData);
     storeSocialButtonData(dstButton, srcButtonData, newIniData);
+
+    for (let linkedSrcHotButton of linkedSrcHotButtons) {
+      console.log(
+        "linking " +
+          JSON.stringify(linkedSrcHotButton) +
+          " to " +
+          JSON.stringify(dstButton)
+      );
+      linkHotButtonToSocialButton(linkedSrcHotButton, dstButton, newIniData);
+    }
+    for (let linkedDstHotButton of linkedDstHotButtons) {
+      console.log(
+        "linking " +
+          JSON.stringify(linkedDstHotButton) +
+          " to " +
+          JSON.stringify(srcButton)
+      );
+      linkHotButtonToSocialButton(linkedDstHotButton, srcButton, newIniData);
+    }
 
     setIniData(newIniData);
   };
@@ -137,12 +125,21 @@ const App = () => {
   //console.log("Render app");
   //dumpHash("hash in App: ", iniData);
 
+  const fileNameHandler = (name: string) => {
+    console.log("FNH name: " + name);
+
+    // force new object to be created
+    const newName: string = (" " + name).slice(1);
+    setFileName(newName);
+  };
+
   return (
     <div className="container ms-2">
       <h1>
         <mark>EQ Social Button Editor</mark>
       </h1>
-      <FileUploader onIniData={setIniData} />
+      <FileUploader onIniData={setIniData} onFileName={fileNameHandler} />
+      <FileDownloader iniData={iniData} fileName={fileName} />
       <table>
         <tbody>
           <tr>

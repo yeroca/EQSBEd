@@ -4,7 +4,7 @@ type SocialButtonLoc = {
 };
 
 type HotButtonLoc = {
-  bankNum: number;
+  barNum: number;
   pageNum: number;
   buttonNum: number;
 };
