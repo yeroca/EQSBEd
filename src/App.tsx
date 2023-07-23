@@ -139,7 +139,6 @@ const App = () => {
         <mark>EQ Social Button Editor</mark>
       </h1>
       <FileUploader onIniData={setIniData} onFileName={fileNameHandler} />
-      <FileDownloader iniData={iniData} fileName={fileName} />
       <table>
         <tbody>
           <tr>
@@ -156,6 +155,7 @@ const App = () => {
           </tr>
         </tbody>
       </table>
+      <FileDownloader iniData={iniData} fileName={fileName} />
     </div>
   );
 };
