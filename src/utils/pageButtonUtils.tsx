@@ -1,4 +1,4 @@
-import { HotButtonLoc, SocialButtonLoc } from "../buttonTypes";
+import { HotButtonLoc, SocialButtonLoc } from "../ButtonTypes";
 
 const pageButtonToKeyPrefix = (buttonLoc: SocialButtonLoc | HotButtonLoc) => {
   return "Page" + buttonLoc.pageNum + "Button" + buttonLoc.buttonNum;

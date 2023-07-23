@@ -1,6 +1,6 @@
 import IniData from "../IniData";
 import SocialButtonData from "../SocialButtonData";
-import { SocialButtonLoc } from "../buttonTypes";
+import { SocialButtonLoc } from "../ButtonTypes";
 import {
   pageButtonToNameKey,
   pageButtonToColorKey,

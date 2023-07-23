@@ -1,7 +1,7 @@
 import React from "react";
 import SocialButton from "./SocialButton";
 import IniData from "../IniData";
-import { SocialButtonLoc } from "../buttonTypes";
+import { SocialButtonLoc } from "../ButtonTypes";
 //import dumpHash from "../utils/dumpHash";
 
 interface SocialButtonPageProps {

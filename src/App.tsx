@@ -4,7 +4,7 @@ import { useState } from "react";
 import FileUploader from "./components/FileUploader";
 import SocialButtonPage from "./components/SocialButtonPage";
 import IniData from "./IniData";
-import { SocialButtonLoc, HotButtonLoc } from "./buttonTypes";
+import { SocialButtonLoc, HotButtonLoc } from "./ButtonTypes";
 import {
   loadSocialButtonData,
   storeSocialButtonData,

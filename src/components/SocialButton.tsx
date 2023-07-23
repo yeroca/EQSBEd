@@ -4,7 +4,7 @@ import {
   pageButtonToColorKey,
 } from "../utils/pageButtonUtils";
 import IniData from "../IniData";
-import { SocialButtonLoc } from "../buttonTypes";
+import { SocialButtonLoc } from "../ButtonTypes";
 //import dumpHash from "../utils/dumpHash";
 
 interface SocialButtonProps {

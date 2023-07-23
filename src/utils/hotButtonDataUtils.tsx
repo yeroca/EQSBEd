@@ -1,4 +1,4 @@
-import { SocialButtonLoc, HotButtonLoc } from "../buttonTypes";
+import { SocialButtonLoc, HotButtonLoc } from "../ButtonTypes";
 
 import {
   pageButtonToHotButtonIndex,
