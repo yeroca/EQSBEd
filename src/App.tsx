@@ -16,6 +16,7 @@ import {
 import FileDownloader from "./components/FileDownloader";
 import HotButtonData from "./HotButtonData";
 import Alert from "./components/Alert";
+import SocialButtonEditor from "./components/SocialButtonEditor";
 
 //import dumpHash from "./utils/dumpHash";
 
@@ -24,6 +25,8 @@ const pageNums = Array.from(Array(10), (_, i) => i + 1);
 const App = () => {
   const [iniData, setIniData] = useState<IniData>({});
   const [fileName, setFileName] = useState<string>("");
+  const [editSocialButtonLoc, setEditSocialButtonLoc] =
+    useState<SocialButtonLoc>({ pageNum: 0, buttonNum: 0 });
 
   const [srcSocialButtonLoc, setSrcSocialButtonLoc] = useState<SocialButtonLoc>(
     {
@@ -127,13 +130,12 @@ const App = () => {
     });
   };
 
-  //console.log("Render app");
-  //dumpHash("hash in App: ", iniData);
+  //
+  const handleDoubleClick = (buttonLoc: SocialButtonLoc) => {
+    setEditSocialButtonLoc(buttonLoc);
+  };
 
   const fileNameHandler = (name: string) => {
-    //console.log("FNH name: " + name);
-
-    // force new object to be created
     const newName: string = (" " + name).slice(1);
     setFileName(newName);
   };
@@ -147,25 +149,27 @@ const App = () => {
       <FileUploader onIniData={setIniData} onFileName={fileNameHandler} />
       <table>
         <tbody>
-          <tr>
+          <tr key={1}>
             {pageNums.map((pageNum) => (
-              <td>
+              <td key={pageNum}>
                 <SocialButtonPage
                   iniData={iniData}
                   pageNum={pageNum}
                   onDrop={handleDrop}
                   onDragEnd={handleDragEnd}
-                ></SocialButtonPage>
+                  onDoubleClick={handleDoubleClick}
+                />
               </td>
             ))}
           </tr>
         </tbody>
       </table>
-      <Alert
-        message="
-        Make a backup copy of your original .ini file before using the one
-        created here"
+      <SocialButtonEditor
+        iniData={iniData}
+        buttonLoc={editSocialButtonLoc}
+        enabled={true}
       />
+      <Alert message="Make a backup copy of your original .ini file before using the one created here" />
       <FileDownloader iniData={iniData} fileName={fileName} />
     </div>
   );

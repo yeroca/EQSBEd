@@ -9,6 +9,7 @@ interface SocialButtonPageProps {
   pageNum: number;
   onDrop: (buttonLoc: SocialButtonLoc) => void;
   onDragEnd: (buttonLoc: SocialButtonLoc) => void;
+  onDoubleClick: (buttonLoc: SocialButtonLoc) => void;
 }
 
 const thStyle: React.CSSProperties = {
@@ -27,6 +28,7 @@ const SocialButtonPage: React.FC<SocialButtonPageProps> = ({
   pageNum,
   onDrop,
   onDragEnd,
+  onDoubleClick,
 }) => {
   //console.log("Render SocialButtonPage " + pageNum);
   //if (iniData) {
@@ -43,21 +45,23 @@ const SocialButtonPage: React.FC<SocialButtonPageProps> = ({
       </thead>
       <tbody>
         {rowNums.map((rowNum) => (
-          <tr>
-            <td>
+          <tr key={rowNum}>
+            <td key={rowNum}>
               <SocialButton
                 iniData={iniData}
                 buttonLoc={{ pageNum: pageNum, buttonNum: rowNum }}
                 onDrop={onDrop}
                 onDragEnd={onDragEnd}
+                onDoubleClick={onDoubleClick}
               ></SocialButton>
             </td>
-            <td>
+            <td key={rowNum + 6}>
               <SocialButton
                 iniData={iniData}
                 buttonLoc={{ pageNum: pageNum, buttonNum: rowNum + 6 }}
                 onDrop={onDrop}
                 onDragEnd={onDragEnd}
+                onDoubleClick={onDoubleClick}
               ></SocialButton>
             </td>
           </tr>

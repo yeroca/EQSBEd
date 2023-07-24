@@ -12,6 +12,7 @@ interface SocialButtonProps {
   buttonLoc: SocialButtonLoc;
   onDrop: (buttonLoc: SocialButtonLoc) => void;
   onDragEnd: (buttonLoc: SocialButtonLoc) => void;
+  onDoubleClick: (buttonLoc: SocialButtonLoc) => void;
 }
 
 interface ColorsType {
@@ -46,6 +47,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
   buttonLoc,
   onDrop,
   onDragEnd,
+  onDoubleClick,
 }) => {
   //console.log("Render Social Button");
 
@@ -78,6 +80,10 @@ const SocialButton: React.FC<SocialButtonProps> = ({
     onDragEnd(buttonLoc);
   };
 
+  const myHandleDoubleClick = () => {
+    onDoubleClick(buttonLoc);
+  };
+
   return (
     <button
       type="button"
@@ -86,6 +92,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
       onDragOver={(event) => event.preventDefault()}
       onDrop={myHandleDrop}
       onDragEnd={myHandleDragEnd}
+      onDoubleClick={myHandleDoubleClick}
     >
       {name}
     </button>
