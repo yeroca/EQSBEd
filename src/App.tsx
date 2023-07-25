@@ -142,7 +142,7 @@ const App = () => {
 
   return (
     <div className="container ms-2">
-      <h1>
+      <h1 style={{ marginBottom: "20px" }}>
         <mark>Sock Drawer</mark>
         <small> an EQ Social Button Editor - Alpha 0.1</small>
       </h1>

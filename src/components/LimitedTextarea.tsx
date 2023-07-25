@@ -26,7 +26,8 @@ const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
   }, [initialValue]);
 
   return (
-    <Form.Group>
+    <Form.Group className="mb-3">
+      <Form.Label>Commands</Form.Label>
       <Form.Control
         as="textarea"
         ref={textareaRef}

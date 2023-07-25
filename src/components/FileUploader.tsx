@@ -2,6 +2,7 @@
 
 import IniData from "../IniData";
 import ini from "ini";
+import Form from "react-bootstrap/Form";
 
 interface FileUploaderProps {
   onIniData: (data: { [section: string]: { [key: string]: string } }) => void;
@@ -35,9 +36,20 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-    </div>
+    <>
+      <Form>
+        <Form.Group
+          className="mb-3"
+          style={{ border: "1px solid #ccc", padding: "10px" }}
+        >
+          <Form.Label>
+            Choose <span style={{ fontStyle: "italic" }}>character_server</span>
+            .ini file
+          </Form.Label>
+          <Form.Control type="file" onChange={handleFileChange} />
+        </Form.Group>
+      </Form>
+    </>
   );
 };
 
