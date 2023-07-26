@@ -4,6 +4,7 @@ import TextInput from "./TextInput";
 import IniData from "../IniData";
 import { SocialButtonLoc } from "../ButtonTypes";
 import { loadSocialButtonData } from "../utils/socialButtonDataUtils";
+import SocialButtonData from "../SocialButtonData";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -21,8 +22,12 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   showModal,
   onHide,
 }) => {
-  const socialButtonData = loadSocialButtonData(buttonLoc, iniData);
-  console.log("sbd.name = " + socialButtonData.name);
+  const socialButtonData: SocialButtonData = loadSocialButtonData(
+    buttonLoc,
+    iniData
+  );
+
+  //console.log("sbd.name = " + socialButtonData.name);
   return (
     <Modal
       show={showModal}

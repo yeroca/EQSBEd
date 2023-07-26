@@ -20,6 +20,7 @@ import {
   onLinkedHotButtons,
 } from "./utils/hotButtonDataUtils";
 import copyString from "./utils/copyString";
+import copyIniData from "./utils/copyIniData";
 //import dumpHash from "./utils/dumpHash";
 
 const pageNums = Array.from(Array(10), (_, i) => i + 1);
@@ -76,7 +77,7 @@ const App = () => {
 
     // swap the social key data
 
-    const newIniData = JSON.parse(JSON.stringify(iniData));
+    const newIniData = copyIniData(iniData);
 
     const srcButtonData = loadSocialButtonData(srcButton, newIniData);
     //console.log("src: " + JSON.stringify(srcButtonData));
