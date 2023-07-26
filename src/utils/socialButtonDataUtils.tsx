@@ -6,6 +6,7 @@ import {
   pageButtonToColorKey,
   pageButtonToLineKey,
 } from "./pageButtonUtils";
+import copyString from "./copyString";
 
 const loadSocialButtonData = (
   buttonLoc: SocialButtonLoc,
@@ -16,11 +17,15 @@ const loadSocialButtonData = (
     const colorKey = pageButtonToColorKey(buttonLoc);
 
     return {
-      name: nameKey in iniData.Socials ? iniData.Socials[nameKey] : "",
-      color: colorKey in iniData.Socials ? iniData.Socials[colorKey] : "",
+      name:
+        nameKey in iniData.Socials ? copyString(iniData.Socials[nameKey]) : "",
+      color:
+        colorKey in iniData.Socials
+          ? copyString(iniData.Socials[colorKey])
+          : "",
       lines: Array.from(Array(5), (_, idx) =>
         pageButtonToLineKey(buttonLoc, idx + 1) in iniData.Socials
-          ? iniData.Socials[pageButtonToLineKey(buttonLoc, idx + 1)]
+          ? copyString(iniData.Socials[pageButtonToLineKey(buttonLoc, idx + 1)])
           : ""
       ),
     };

@@ -19,7 +19,7 @@ import {
   linkHotButtonToSocialButton,
   onLinkedHotButtons,
 } from "./utils/hotButtonDataUtils";
-
+import copyString from "./utils/copyString";
 //import dumpHash from "./utils/dumpHash";
 
 const pageNums = Array.from(Array(10), (_, i) => i + 1);
@@ -88,22 +88,26 @@ const App = () => {
     // Fix the hot buttons
     //console.log("linkedSrctHotButtons: " + JSON.stringify(linkedSrcHotButtons));
     for (let linkedSrcHotButton of linkedSrcHotButtons) {
+      /*
       console.log(
         "linking " +
           JSON.stringify(linkedSrcHotButton) +
           " to " +
           JSON.stringify(dstButton)
       );
+      */
       linkHotButtonToSocialButton(linkedSrcHotButton, dstButton, newIniData);
     }
     //console.log("linkedDstHotButtons: " + JSON.stringify(linkedDstHotButtons));
     for (let linkedDstHotButton of linkedDstHotButtons) {
+      /*
       console.log(
         "linking " +
           JSON.stringify(linkedDstHotButton) +
           " to " +
           JSON.stringify(srcButton)
       );
+      */
       linkHotButtonToSocialButton(linkedDstHotButton, srcButton, newIniData);
     }
 
@@ -141,7 +145,7 @@ const App = () => {
   };
 
   const fileNameHandler = (name: string) => {
-    const newName: string = (" " + name).slice(1);
+    const newName: string = copyString(name);
     setFileName(newName);
   };
 

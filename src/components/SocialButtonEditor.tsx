@@ -53,7 +53,7 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
         </Form>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
-        <Button onClick={onHide}>Cancel</Button>
+        <Button>Clear</Button>
         <Button disabled={true}>Accept</Button>
       </Modal.Footer>
     </Modal>
