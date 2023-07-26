@@ -27,6 +27,8 @@ const App = () => {
   const [fileName, setFileName] = useState<string>("");
   const [editSocialButtonLoc, setEditSocialButtonLoc] =
     useState<SocialButtonLoc>({ pageNum: 0, buttonNum: 0 });
+  const [showSocialButtonEditorModal, setShowSocialButtonEditorModal] =
+    useState<boolean>(false);
 
   const [srcSocialButtonLoc, setSrcSocialButtonLoc] = useState<SocialButtonLoc>(
     {
@@ -133,6 +135,7 @@ const App = () => {
   //
   const handleDoubleClick = (buttonLoc: SocialButtonLoc) => {
     setEditSocialButtonLoc(buttonLoc);
+    setShowSocialButtonEditorModal(true);
   };
 
   const fileNameHandler = (name: string) => {
@@ -167,7 +170,7 @@ const App = () => {
       <SocialButtonEditor
         iniData={iniData}
         buttonLoc={editSocialButtonLoc}
-        enabled={true}
+        showModal={showSocialButtonEditorModal}
       />
       <Alert message="Make a backup copy of your original .ini file before using the one created here" />
       <FileDownloader iniData={iniData} fileName={fileName} />

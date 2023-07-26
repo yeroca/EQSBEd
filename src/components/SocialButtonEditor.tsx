@@ -5,39 +5,41 @@ import IniData from "../IniData";
 import { SocialButtonLoc } from "../ButtonTypes";
 import { loadSocialButtonData } from "../utils/socialButtonDataUtils";
 import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
 interface SocialButtonEditorProps {
   iniData: IniData;
   buttonLoc: SocialButtonLoc;
-  enabled: boolean;
+  showModal: boolean;
 }
 
 const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   iniData,
   buttonLoc,
-  enabled,
+  showModal,
 }) => {
   const socialButtonData = loadSocialButtonData(buttonLoc, iniData);
   console.log("sbd.name = " + socialButtonData.name);
   return (
-    <>
-      {enabled ? (
-        <Form>
-          <TextInput
-            initialValue={socialButtonData.name}
-            onUpdate={() => {
-              console.log("name updated!");
-            }}
-          />
-          <LimitedTextarea
-            maxLength={2000}
-            initialValue={socialButtonData.lines.join("\n")}
-          />
-        </Form>
-      ) : (
-        <></>
-      )}
-    </>
+    <Modal
+      show={showModal}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Form>
+        <TextInput
+          initialValue={socialButtonData.name}
+          onUpdate={() => {
+            console.log("name updated!");
+          }}
+        />
+        <LimitedTextarea
+          maxLength={2000}
+          initialValue={socialButtonData.lines.join("\n")}
+        />
+      </Form>
+    </Modal>
   );
 };
 
