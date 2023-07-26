@@ -6,17 +6,20 @@ import { SocialButtonLoc } from "../ButtonTypes";
 import { loadSocialButtonData } from "../utils/socialButtonDataUtils";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 interface SocialButtonEditorProps {
   iniData: IniData;
   buttonLoc: SocialButtonLoc;
   showModal: boolean;
+  onHide: () => void;
 }
 
 const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   iniData,
   buttonLoc,
   showModal,
+  onHide,
 }) => {
   const socialButtonData = loadSocialButtonData(buttonLoc, iniData);
   console.log("sbd.name = " + socialButtonData.name);
@@ -26,19 +29,32 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      backdrop={true}
+      keyboard={true}
+      onHide={onHide}
     >
-      <Form>
-        <TextInput
-          initialValue={socialButtonData.name}
-          onUpdate={() => {
-            console.log("name updated!");
-          }}
-        />
-        <LimitedTextarea
-          maxLength={2000}
-          initialValue={socialButtonData.lines.join("\n")}
-        />
-      </Form>
+      <Modal.Header closeButton onHide={onHide}>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Button Editor (currently is Read-Only)
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <TextInput
+            initialValue={socialButtonData.name}
+            onUpdate={() => {
+              console.log("name updated!");
+            }}
+          />
+          <LimitedTextarea
+            maxLength={2000}
+            initialValue={socialButtonData.lines.join("\n")}
+          />
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button disabled={true}>Save</Button>
+      </Modal.Footer>
     </Modal>
   );
 };

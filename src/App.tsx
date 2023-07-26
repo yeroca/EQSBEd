@@ -1,9 +1,15 @@
 // import ImportDialog from './components/ImportDialog'
 // ParentComponent.js
 import { useState } from "react";
+
 import FileUploader from "./components/FileUploader";
 import SocialButtonPage from "./components/SocialButtonPage";
 import IniData from "./IniData";
+import FileDownloader from "./components/FileDownloader";
+import HotButtonData from "./HotButtonData";
+import Alert from "./components/Alert";
+import SocialButtonEditor from "./components/SocialButtonEditor";
+
 import { SocialButtonLoc, HotButtonLoc } from "./ButtonTypes";
 import {
   loadSocialButtonData,
@@ -13,10 +19,6 @@ import {
   linkHotButtonToSocialButton,
   onLinkedHotButtons,
 } from "./utils/hotButtonDataUtils";
-import FileDownloader from "./components/FileDownloader";
-import HotButtonData from "./HotButtonData";
-import Alert from "./components/Alert";
-import SocialButtonEditor from "./components/SocialButtonEditor";
 
 //import dumpHash from "./utils/dumpHash";
 
@@ -149,6 +151,12 @@ const App = () => {
         <mark>Sock Drawer</mark>
         <small> an EQ Social Button Editor - Alpha 0.1</small>
       </h1>
+      <p>
+        <strong>Directions: </strong>After choosing your .ini file below, you
+        can click and drag a button from one location to another to swap those
+        two buttons, or you can double click on a button to view its contents.
+        When you are finished, click the Download button below.
+      </p>
       <FileUploader onIniData={setIniData} onFileName={fileNameHandler} />
       <table>
         <tbody>
@@ -167,13 +175,14 @@ const App = () => {
           </tr>
         </tbody>
       </table>
+      <Alert message="Make a backup copy of your original .ini file before using the one created here" />
+      <FileDownloader iniData={iniData} fileName={fileName} />
       <SocialButtonEditor
         iniData={iniData}
         buttonLoc={editSocialButtonLoc}
         showModal={showSocialButtonEditorModal}
+        onHide={() => setShowSocialButtonEditorModal(false)}
       />
-      <Alert message="Make a backup copy of your original .ini file before using the one created here" />
-      <FileDownloader iniData={iniData} fileName={fileName} />
     </div>
   );
 };
