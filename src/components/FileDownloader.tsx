@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 import ini from "ini";
 import IniData from "../IniData";
 
@@ -28,7 +29,7 @@ const FileDownloader: React.FC<FileDownloaderProps> = ({
     URL.revokeObjectURL(url);
   };
 
-  return <button onClick={handleDownload}>Download</button>;
+  return <Button onClick={handleDownload}>Download</Button>;
 };
 
 export default FileDownloader;
