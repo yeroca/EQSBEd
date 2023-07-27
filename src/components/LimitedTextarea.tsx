@@ -1,38 +1,28 @@
-import React, { useRef, useState, useEffect, ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 import Form from "react-bootstrap/Form";
 
 interface LimitedTextareaProps {
   maxLength: number;
-  initialValue: string;
+  value: string;
+  onChange: (newValue: string) => void;
 }
 
 const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
   maxLength,
-  initialValue = "",
+  value,
+  onChange,
 }) => {
-  //console.log("LTA initialValue: " + initialValue);
-  const [value, setValue] = useState<string>(initialValue);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    //console.log("handleChange called!");
-    const textareaValue = event.target.value;
-    setValue(textareaValue);
+  const handleTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    onChange(event.target.value);
   };
-
-  useEffect(() => {
-    // Synchronize the state with the initialValue prop when it changes
-    setValue(initialValue);
-  }, [initialValue]);
 
   return (
     <Form.Group className="mb-3">
       <Form.Label>Commands</Form.Label>
       <Form.Control
         as="textarea"
-        ref={textareaRef}
         value={value}
-        onChange={handleChange}
+        onChange={handleTextAreaChange}
         rows={5}
         maxLength={maxLength}
         style={{

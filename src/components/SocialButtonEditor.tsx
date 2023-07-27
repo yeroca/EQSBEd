@@ -1,3 +1,5 @@
+import { useCallback, useReducer, useEffect } from "react";
+
 import LimitedTextarea from "./LimitedTextarea";
 import TextInput from "./TextInput";
 
@@ -9,6 +11,36 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
+const printStackTrace = () => {
+  console.log("-------------------------");
+  try {
+    throw new Error("Printing stack trace");
+  } catch (error) {
+    console.log((error as Error).stack?.split("\n").slice(0, 3).join("\n"));
+  }
+};
+
+type SocialButtonAction =
+  | { type: "SET_NAME"; payload: string }
+  | { type: "SET_COLOR"; payload: string }
+  | { type: "SET_LINES"; payload: string[] };
+
+const socialButtonReducer = (
+  state: SocialButtonData,
+  action: SocialButtonAction
+): SocialButtonData => {
+  switch (action.type) {
+    case "SET_NAME":
+      printStackTrace();
+      return { ...state, name: action.payload };
+    case "SET_COLOR":
+      return { ...state, color: action.payload };
+    case "SET_LINES":
+      return { ...state, lines: action.payload };
+    default:
+      return state;
+  }
+};
 interface SocialButtonEditorProps {
   iniData: IniData;
   buttonLoc: SocialButtonLoc;
@@ -22,12 +54,34 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   showModal,
   onHide,
 }) => {
-  const socialButtonData: SocialButtonData = loadSocialButtonData(
-    buttonLoc,
-    iniData
-  );
+  const [socialButtonData, dispatch] = useReducer(socialButtonReducer, {
+    name: "",
+    color: "",
+    lines: ["", "", "", "", ""],
+  });
 
-  //console.log("sbd.name = " + socialButtonData.name);
+  useEffect(() => {
+    // Load initial data from loadSocialButtonData when component mounts
+    const initialData = loadSocialButtonData(buttonLoc, iniData);
+    dispatch({ type: "SET_NAME", payload: initialData.name });
+    dispatch({ type: "SET_COLOR", payload: initialData.color });
+    dispatch({ type: "SET_LINES", payload: initialData.lines });
+  }, [buttonLoc, iniData]);
+
+  // Memoized callbacks to update the corresponding state properties
+  const handleNameChange = useCallback((newValue: string) => {
+    dispatch({ type: "SET_NAME", payload: newValue });
+  }, []);
+
+  const handleTextareaChange = useCallback((newValue: string) => {
+    dispatch({ type: "SET_LINES", payload: newValue.split("\n") });
+  }, []);
+
+  const handleClearFields = () => {
+    dispatch({ type: "SET_NAME", payload: "" });
+    dispatch({ type: "SET_COLOR", payload: "" });
+    dispatch({ type: "SET_LINES", payload: ["", "", "", "", ""] });
+  };
   return (
     <Modal
       show={showModal}
@@ -47,18 +101,17 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
         <Form>
           <TextInput
             initialValue={socialButtonData.name}
-            onUpdate={() => {
-              console.log("name updated!");
-            }}
+            onUpdate={handleNameChange}
           />
           <LimitedTextarea
             maxLength={2000}
-            initialValue={socialButtonData.lines.join("\n")}
+            value={socialButtonData.lines.join("\n")}
+            onChange={handleTextareaChange}
           />
         </Form>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
-        <Button>Clear</Button>
+        <Button onClick={handleClearFields}>Clear</Button>
         <Button disabled={true}>Accept</Button>
       </Modal.Footer>
     </Modal>

@@ -1,7 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import ini from "ini";
 import IniData from "../IniData";
+
+import { encode } from "../utils/customIni";
 
 interface FileDownloaderProps {
   iniData: IniData;
@@ -13,7 +14,7 @@ const FileDownloader: React.FC<FileDownloaderProps> = ({
   fileName,
 }) => {
   const handleDownload = () => {
-    const content = ini.encode(iniData);
+    const content = encode(iniData);
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const clickEvent = new MouseEvent("click", {

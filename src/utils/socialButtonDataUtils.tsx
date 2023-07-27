@@ -16,7 +16,7 @@ const loadSocialButtonData = (
     const nameKey = pageButtonToNameKey(buttonLoc);
     const colorKey = pageButtonToColorKey(buttonLoc);
 
-    return {
+    const socialButtonData = {
       name:
         nameKey in iniData.Socials ? copyString(iniData.Socials[nameKey]) : "",
       color:
@@ -29,6 +29,8 @@ const loadSocialButtonData = (
           : ""
       ),
     };
+    console.log("SocialButtonData1: ", JSON.stringify(socialButtonData));
+    return socialButtonData;
   } else {
     return {
       name: "",

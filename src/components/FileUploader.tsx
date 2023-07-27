@@ -1,8 +1,9 @@
 // FileUploader.tsx
 
 import IniData from "../IniData";
-import ini from "ini";
 import Form from "react-bootstrap/Form";
+
+import { decode } from "../utils/customIni";
 
 interface FileUploaderProps {
   onIniData: (data: { [section: string]: { [key: string]: string } }) => void;
@@ -28,7 +29,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           typeof content == "string"
             ? content
             : new TextDecoder().decode(content);
-        const iniData: IniData = ini.decode(contentString);
+        const iniData: IniData = decode(contentString);
         onIniData(iniData); // Call the parent's callback with the processed INI data
       }
     };
