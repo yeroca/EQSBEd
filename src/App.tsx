@@ -2,6 +2,7 @@
 // ParentComponent.js
 import { useState } from "react";
 
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import FileUploader from "./components/FileUploader";
 import SocialButtonPage from "./components/SocialButtonPage";
 import IniData from "./IniData";
@@ -150,18 +151,36 @@ const App = () => {
     setFileName(newName);
   };
 
+  /*
+  const openExternalLinkInNewTab = (url: string) => {
+    // Create a new window/tab with the external link
+    const newWindow = window.open(url, "_blank");
+    // Add noopener and noreferrer attributes to improve security
+    if (newWindow) newWindow.opener = null;
+  };
+*/
   return (
     <div className="container ms-2">
-      <h1 style={{ marginBottom: "20px" }}>
-        <mark>Sock Drawer</mark>
-        <small> an EQ Social Button Editor - Alpha 0.5</small>
-      </h1>
-      <p>
-        <strong>Directions: </strong>After choosing your .ini file below, you
-        can click and drag a button from one location to another to swap those
-        two buttons, or you can double click on a button to view its contents.
-        When you are finished, click the Download button below.
-      </p>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand href="#home">Sock Drawer</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <NavDropdown title="About" id="basic-nav-dropdown">
+                <NavDropdown.Item>Version 0.5 Alpha</NavDropdown.Item>
+                <NavDropdown.Item href="/usage.html">
+                  Usage and known issues
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/privacy.html">
+                  Privacy and Security
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
       <FileUploader onIniData={setIniData} onFileName={fileNameHandler} />
       <table>
         <tbody>
