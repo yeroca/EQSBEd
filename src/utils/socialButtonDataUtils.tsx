@@ -29,7 +29,6 @@ const loadSocialButtonData = (
           : ""
       ),
     };
-    console.log("SocialButtonData1: ", JSON.stringify(socialButtonData));
     return socialButtonData;
   } else {
     return {

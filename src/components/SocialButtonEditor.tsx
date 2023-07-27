@@ -11,6 +11,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
+/*
 const printStackTrace = () => {
   console.log("-------------------------");
   try {
@@ -19,6 +20,7 @@ const printStackTrace = () => {
     console.log((error as Error).stack?.split("\n").slice(0, 8).join("\n"));
   }
 };
+*/
 
 type SocialButtonAction =
   | { type: "SET_NAME"; payload: string }
@@ -31,14 +33,14 @@ const socialButtonReducer = (
 ): SocialButtonData => {
   switch (action.type) {
     case "SET_NAME":
-      console.log("SET_NAME : " + action.payload);
-      printStackTrace();
+      //console.log("SET_NAME : " + action.payload);
+      //printStackTrace();
       return { ...state, name: action.payload };
     case "SET_COLOR":
       return { ...state, color: action.payload };
     case "SET_LINES":
-      console.log("SET_LINES : " + JSON.stringify(action.payload));
-      printStackTrace();
+      //console.log("SET_LINES : " + JSON.stringify(action.payload));
+      //printStackTrace();
       return { ...state, lines: action.payload };
     default:
       return state;
@@ -58,8 +60,10 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   showModal,
   onHide,
 }) => {
+  /*
   console.log("SocialButtonEditor render!");
   printStackTrace();
+  */
   const [socialButtonData, dispatch] = useReducer(socialButtonReducer, {
     name: "",
     color: "",
