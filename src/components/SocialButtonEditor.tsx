@@ -16,7 +16,7 @@ const printStackTrace = () => {
   try {
     throw new Error("Printing stack trace");
   } catch (error) {
-    console.log((error as Error).stack?.split("\n").slice(0, 3).join("\n"));
+    console.log((error as Error).stack?.split("\n").slice(0, 8).join("\n"));
   }
 };
 
@@ -31,16 +31,20 @@ const socialButtonReducer = (
 ): SocialButtonData => {
   switch (action.type) {
     case "SET_NAME":
+      console.log("SET_NAME : " + action.payload);
       printStackTrace();
       return { ...state, name: action.payload };
     case "SET_COLOR":
       return { ...state, color: action.payload };
     case "SET_LINES":
+      console.log("SET_LINES : " + JSON.stringify(action.payload));
+      printStackTrace();
       return { ...state, lines: action.payload };
     default:
       return state;
   }
 };
+
 interface SocialButtonEditorProps {
   iniData: IniData;
   buttonLoc: SocialButtonLoc;
@@ -54,6 +58,8 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   showModal,
   onHide,
 }) => {
+  console.log("SocialButtonEditor render!");
+  printStackTrace();
   const [socialButtonData, dispatch] = useReducer(socialButtonReducer, {
     name: "",
     color: "",
@@ -63,8 +69,15 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   useEffect(() => {
     // Load initial data from loadSocialButtonData when component mounts
     const initialData = loadSocialButtonData(buttonLoc, iniData);
+    //console.log("calling SET_NAME from useEffect: " + initialData.name);
     dispatch({ type: "SET_NAME", payload: initialData.name });
     dispatch({ type: "SET_COLOR", payload: initialData.color });
+    /*
+    console.log(
+      "calling SET_LINES from useEffect: " + JSON.stringify(initialData.lines)
+    );
+    */
+
     dispatch({ type: "SET_LINES", payload: initialData.lines });
   }, [buttonLoc, iniData]);
 
@@ -100,7 +113,7 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
       <Modal.Body>
         <Form>
           <TextInput
-            initialValue={socialButtonData.name}
+            value={socialButtonData.name}
             onUpdate={handleNameChange}
           />
           <LimitedTextarea

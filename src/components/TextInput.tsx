@@ -1,28 +1,16 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 import Form from "react-bootstrap/Form";
 
 interface TextInputProps {
-  initialValue: string;
+  value: string;
   onUpdate: (updatedValue: string) => void;
 }
 
-const TextInput: React.FC<TextInputProps> = ({ initialValue, onUpdate }) => {
-  const [value, setValue] = useState<string>(initialValue);
-
-  useEffect(() => {
-    // Synchronize the state with the initialValue prop when it changes
-    setValue(initialValue);
-  }, [initialValue]);
-
+const TextInput: React.FC<TextInputProps> = ({ value, onUpdate }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
-    setValue(newValue);
+    onUpdate(newValue);
   };
-
-  useEffect(() => {
-    // Call the onUpdate prop when the value changes
-    onUpdate(value);
-  }, [value, onUpdate]);
 
   return (
     <Form.Group className="=mb=3">
