@@ -154,7 +154,7 @@ const App = () => {
     <div className="container ms-2">
       <h1 style={{ marginBottom: "20px" }}>
         <mark>Sock Drawer</mark>
-        <small> an EQ Social Button Editor - Alpha 0.1</small>
+        <small> an EQ Social Button Editor - Alpha 0.5</small>
       </h1>
       <p>
         <strong>Directions: </strong>After choosing your .ini file below, you
