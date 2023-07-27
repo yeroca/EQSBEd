@@ -7,6 +7,15 @@ interface LimitedTextareaProps {
   onChange: (newValue: string) => void;
 }
 
+const lengthExceedsLimit = (s: string): boolean => {
+  // Ignore trailing blank lines, which are likely to occur during normal editing by mistake
+  const arr = s.split("\n");
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (arr[i] !== "") return i + 1 > 5;
+  }
+  return false;
+};
+
 const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
   maxLength,
   value,
@@ -26,12 +35,15 @@ const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
         rows={5}
         maxLength={maxLength}
         style={{
-          backgroundColor: value.split("\n").length > 5 ? "#ffbbbb" : "",
+          backgroundColor: lengthExceedsLimit(value) ? "#ffbbbb" : "",
         }}
       />
-      <Form.Text>{`${
-        maxLength - value.length
-      } characters remaining`}</Form.Text>
+      <Form.Text>
+        <>
+          {lengthExceedsLimit(value) &&
+            "Social button cannot exeed five lines of commands (blank lines between commands count)"}
+        </>
+      </Form.Text>
     </Form.Group>
   );
 };
