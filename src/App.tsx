@@ -169,10 +169,10 @@ const App = () => {
             <Nav className="me-auto">
               <NavDropdown title="About" id="basic-nav-dropdown">
                 <NavDropdown.Item>Version 0.5 Alpha</NavDropdown.Item>
-                <NavDropdown.Item href="/usage.html">
+                <NavDropdown.Item href="./usage.html">
                   Usage and known issues
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/privacy.html">
+                <NavDropdown.Item href="./privacy.html">
                   Privacy and Security
                 </NavDropdown.Item>
               </NavDropdown>
