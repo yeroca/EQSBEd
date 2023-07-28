@@ -41,7 +41,7 @@ const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
       <Form.Text>
         <>
           {lengthExceedsLimit(value) &&
-            "Social button cannot exeed five lines of commands (blank lines between commands count)"}
+            "Social button cannot exceed five lines of commands (blank lines between commands count)"}
         </>
       </Form.Text>
     </Form.Group>
