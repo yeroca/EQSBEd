@@ -6,18 +6,32 @@ const Usage = () => {
       <Container className="ms-2">
         <h4>Usage</h4>
         <p>
-          After choosing your .ini file at the top of the page, you can click
-          and drag a button from one location to another to swap those two
-          buttons, or you can double click on a button to view its contents.
-          When you are finished, click the Download button below.
+          After choosing your <i>&lt;character&gt;_&lt;server&gt;</i>.ini file
+          from your Everquest folder at the top of the page, you can:
+          <ul>
+            <li key="ul1">
+              click and drag a button from one location to another to swap those
+              two buttons
+            </li>
+            <li key="ul2">double click on a button to view its contents</li>
+          </ul>
+          When you are finished, click the Download button below. Sock Drawer
+          will store the file whereever you normally download files to, for
+          example your Downloads folder.
+        </p>
+        <p>
+          <strong>Warning: </strong>Before copying or moving the downloaded file
+          to your Everquest folder, make sure to rename, move, or backup your
+          original <i>&lt;character&gt;_&lt;server&gt;</i>.ini file.
         </p>
         <h4>Known issues</h4>
         <ul>
           <li key="ki_li1">
-            If you have added whole-line comments to your
-            <i>character_server</i>.ini file, those comments will be removed
-            from the downloaded ini file. There will be no fix for this issue,
-            because of the way the .ini file is processed and then output.
+            If you have added whole-line comments to your{" "}
+            <i>&lt;character&gt;_&lt;server&gt;</i>.ini file, those comments
+            will be removed from the subsequently downloaded file. There will be
+            no fix for this issue because of the way the .ini file is read,
+            modified, and then written by Sock Drawer.
           </li>
         </ul>
         <h4>Known issues in Alpha 0.5</h4>
