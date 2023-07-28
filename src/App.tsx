@@ -11,13 +11,16 @@ import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
 import Usage from "./pages/Usage";
 import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 
 const App = () => {
   return (
     <>
       <Container fluid className="ms-2">
         <Navbar expand="lg">
-          <Navbar.Brand href="/">Sock Drawer</Navbar.Brand>
+          <LinkContainer to="/">
+            <Navbar.Brand>Sock Drawer</Navbar.Brand>
+          </LinkContainer>
           <Nav>
             <Nav.Link as={Link} to="/usage">
               Usage and known issues
