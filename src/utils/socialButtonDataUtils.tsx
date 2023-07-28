@@ -43,7 +43,7 @@ const storeSocialButtonData = (
   buttonLoc: SocialButtonLoc,
   socialData: SocialButtonData,
   iniData: IniData
-): void => {
+): boolean => {
   if (socialData.name === "") {
     delete iniData.Socials[pageButtonToNameKey(buttonLoc)];
   } else {
@@ -62,6 +62,8 @@ const storeSocialButtonData = (
         socialData.lines[lineNum - 1];
     }
   }
+  // No validity checking for now
+  return true;
 };
 
 export { loadSocialButtonData, storeSocialButtonData };

@@ -51,14 +51,21 @@ interface SocialButtonEditorProps {
   iniData: IniData;
   buttonLoc: SocialButtonLoc;
   showModal: boolean;
+  setShowModal: (showModal: boolean) => void;
   onHide: () => void;
+  onClickAccept: (
+    buttonLoc: SocialButtonLoc,
+    socialButtonData: SocialButtonData
+  ) => boolean;
 }
 
 const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   iniData,
   buttonLoc,
   showModal,
+  setShowModal,
   onHide,
+  onClickAccept,
 }) => {
   /*
   console.log("SocialButtonEditor render!");
@@ -99,6 +106,13 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
     dispatch({ type: "SET_COLOR", payload: "" });
     dispatch({ type: "SET_LINES", payload: ["", "", "", "", ""] });
   };
+
+  const handleClickAccept = () => {
+    if (onClickAccept(buttonLoc, socialButtonData)) {
+      setShowModal(false);
+    }
+  };
+
   return (
     <Modal
       show={showModal}
@@ -111,7 +125,7 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
     >
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title id="contained-modal-title-vcenter">
-          Button Editor (currently is Read-Only)
+          Social Button Editor
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -129,7 +143,7 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
         <Button onClick={handleClearFields}>Clear</Button>
-        <Button disabled={true}>Accept</Button>
+        <Button onClick={handleClickAccept}>Accept</Button>
       </Modal.Footer>
     </Modal>
   );

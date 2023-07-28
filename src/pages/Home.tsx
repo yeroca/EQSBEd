@@ -21,6 +21,7 @@ import copyString from "../utils/copyString";
 import copyIniData from "../utils/copyIniData";
 
 import { Container } from "react-bootstrap";
+import SocialButtonData from "../SocialButtonData";
 
 //import dumpHash from "./utils/dumpHash";
 
@@ -151,6 +152,19 @@ const Home = () => {
     setFileName(newName);
   };
 
+  const handleClickAccept = (
+    buttonLoc: SocialButtonLoc,
+    socialButtonData: SocialButtonData
+  ): boolean => {
+    const newIniData = copyIniData(iniData);
+    if (storeSocialButtonData(buttonLoc, socialButtonData, newIniData)) {
+      setIniData(newIniData);
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   /*
   const openExternalLinkInNewTab = (url: string) => {
     // Create a new window/tab with the external link
@@ -186,7 +200,9 @@ const Home = () => {
           iniData={iniData}
           buttonLoc={editSocialButtonLoc}
           showModal={showSocialButtonEditorModal}
+          setShowModal={setShowSocialButtonEditorModal}
           onHide={() => setShowSocialButtonEditorModal(false)}
+          onClickAccept={handleClickAccept}
         />
       </Container>
     </>
