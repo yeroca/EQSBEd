@@ -15,10 +15,10 @@ import { Link } from "react-router-dom";
 const App = () => {
   return (
     <>
-      <Container fluid className="p-3">
-        <Navbar expand="lg" className="bg-body-tertiary">
+      <Container fluid className="ms-2">
+        <Navbar expand="lg">
           <Navbar.Brand href="/">Sock Drawer</Navbar.Brand>
-          <Nav className="me-auto">
+          <Nav>
             <Nav.Link as={Link} to="/usage">
               Usage and known issues
             </Nav.Link>

@@ -161,7 +161,7 @@ const Home = () => {
 */
   return (
     <>
-      <Container fluid className="p-3">
+      <Container fluid className="ms-2">
         <FileUploader onIniData={setIniData} onFileName={fileNameHandler} />
         <table>
           <tbody>
