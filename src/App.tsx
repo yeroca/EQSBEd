@@ -1,6 +1,7 @@
 // import ImportDialog from './components/ImportDialog'
 // ParentComponent.js
 
+import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 // React router stuff
@@ -11,8 +12,13 @@ import Home from "./pages/Home";
 import Privacy from "./pages/Privacy";
 import Usage from "./pages/Usage";
 import { Link } from "react-router-dom";
+import IniData from "./IniData";
 
 const App = () => {
+  // Declare these state variables here so that they are preseved when switch to other pages
+  const [iniData, setIniData] = useState<IniData>({});
+  const [fileName, setFileName] = useState<string>("");
+  console.log("fileName: " + fileName);
   return (
     <>
       <Container fluid className="ms-2">
@@ -31,7 +37,17 @@ const App = () => {
         </Navbar>
       </Container>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              iniData={iniData}
+              setIniData={setIniData}
+              fileName={fileName}
+              setFileName={setFileName}
+            />
+          }
+        />
         <Route path="/usage" element={<Usage />} />
         <Route path="/privacy" element={<Privacy />} />
       </Routes>

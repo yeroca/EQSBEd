@@ -27,9 +27,19 @@ import SocialButtonData from "../SocialButtonData";
 
 const pageNums = Array.from(Array(10), (_, i) => i + 1);
 
-const Home = () => {
-  const [iniData, setIniData] = useState<IniData>({});
-  const [fileName, setFileName] = useState<string>("");
+interface HomeProps {
+  iniData: IniData;
+  setIniData: (iniData: IniData) => void;
+  fileName: string;
+  setFileName: (fileName: string) => void;
+}
+
+const Home: React.FC<HomeProps> = ({
+  iniData,
+  setIniData,
+  fileName,
+  setFileName,
+}) => {
   const [editSocialButtonLoc, setEditSocialButtonLoc] =
     useState<SocialButtonLoc>({ pageNum: 0, buttonNum: 0 });
   const [showSocialButtonEditorModal, setShowSocialButtonEditorModal] =
@@ -173,6 +183,7 @@ const Home = () => {
     if (newWindow) newWindow.opener = null;
   };
 */
+  console.log("fileName: " + fileName);
   return (
     <>
       <Container fluid className="ms-2">
