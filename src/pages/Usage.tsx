@@ -12,10 +12,19 @@ const Usage = () => {
           user-friendly way than the game itself allows. For example, you can
           easily copy and paste lines, shift lines up and down, just like you
           would in an editor like Notepad. Everquest itself doesn't allow you to
-          move social buttons around, but this tool does. So, in general, Sock
-          Drawer is a big upgrade to the in-game social button editor, except
-          that you have to use it while logged out, which is admittedly a
-          disadvantage.
+          move social buttons around, but Sock Drawer does.
+        </p>
+        <p>
+          If you have tried to edit a <i>&lt;character&gt;_&lt;server&gt;</i>
+          .ini file before, you might wonder if Sock Drawer deals with the hot
+          buttons that "link" to the social buttons. The answer is yes; Sock
+          Drawer searches for and updates all of your hot buttons that are
+          connected with the two buttons you swapped.
+        </p>
+        <p>
+          So, in general, Sock Drawer is a big-ish upgrade to the in-game social
+          button editor, except that you have to use it while logged out, which
+          is admittedly a disadvantage.
         </p>
         <h4>Usage</h4>
         <p>
