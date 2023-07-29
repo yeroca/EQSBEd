@@ -1,15 +1,16 @@
 import { useCallback, useReducer, useEffect } from "react";
 
+import IniData from "../IniData";
+import SocialButtonData from "../SocialButtonData";
+import HotButtonData from "../HotButtonData";
+import { HotButtonLoc, SocialButtonLoc } from "../ButtonTypes";
+import { loadSocialButtonData } from "../utils/socialButtonDataUtils";
+
 import LimitedTextarea from "./LimitedTextarea";
 import TextInput from "./TextInput";
+import { onLinkedHotButtons } from "../utils/hotButtonDataUtils";
 
-import IniData from "../IniData";
-import { SocialButtonLoc } from "../ButtonTypes";
-import { loadSocialButtonData } from "../utils/socialButtonDataUtils";
-import SocialButtonData from "../SocialButtonData";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+import { Button, Form, Col, Modal, Row, Table } from "react-bootstrap";
 
 /*
 const printStackTrace = () => {
@@ -113,10 +114,20 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
     }
   };
 
+  const linkedHotButtons: HotButtonData[] = [];
+
+  onLinkedHotButtons(
+    buttonLoc,
+    (button: HotButtonLoc, suffix: string) => {
+      linkedHotButtons.push({ hotButtonLoc: button, suffix: suffix });
+    },
+    iniData
+  );
+
   return (
     <Modal
       show={showModal}
-      size="lg"
+      size="xl"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       backdrop={true}
@@ -130,15 +141,58 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <TextInput
-            value={socialButtonData.name}
-            onUpdate={handleNameChange}
-          />
-          <LimitedTextarea
-            maxLength={2000}
-            value={socialButtonData.lines.join("\n")}
-            onChange={handleTextareaChange}
-          />
+          <Row sm="auto">
+            <Col>
+              <TextInput
+                value={socialButtonData.name}
+                onUpdate={handleNameChange}
+              />
+              <LimitedTextarea
+                maxLength={2000}
+                value={socialButtonData.lines.join("\n")}
+                onChange={handleTextareaChange}
+              />
+            </Col>
+            <Col>
+              <Table bordered hover striped size="sm">
+                <thead className="text-center">
+                  <tr key="hbh1">
+                    <th key="hbh1t" colSpan={3}>
+                      On hot buttons
+                    </th>
+                  </tr>
+                  <tr key="hbh2">
+                    <th key="hbh2bar">Bar</th>
+                    <th key="hbh2page">Page</th>
+                    <th key="hbh2button">Button</th>
+                  </tr>
+                </thead>
+                <tbody className="text-center">
+                  {linkedHotButtons.length === 0 && (
+                    <tr key="hbbr-empty">
+                      <td key="hbbd-empty" colSpan={3}>
+                        <i>- none -</i>
+                      </td>
+                    </tr>
+                  )}
+                  {linkedHotButtons.length > 0 &&
+                    linkedHotButtons.map((hotButton, idx) => (
+                      <tr key={"hbbr" + idx}>
+                        <td key={"hbbd-bar" + idx}>
+                          {hotButton.hotButtonLoc.barNum}
+                        </td>
+                        <td key={"hbbd-page" + idx}>
+                          {hotButton.hotButtonLoc.pageNum}
+                        </td>
+                        <td key={"hbbd-button" + idx}>
+                          {hotButton.hotButtonLoc.buttonNum}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
         </Form>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">

@@ -33,6 +33,7 @@ const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
         value={value}
         onChange={handleTextAreaChange}
         rows={5}
+        cols={80}
         maxLength={maxLength}
         style={{
           backgroundColor: lengthExceedsLimit(value) ? "#ffbbbb" : "",
@@ -41,7 +42,7 @@ const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
       <Form.Text>
         <>
           {lengthExceedsLimit(value) &&
-            "Social button cannot exceed five lines of commands (blank lines between commands count)"}
+            "A social button cannot have more than five lines of commands (blank lines between commands count)"}
         </>
       </Form.Text>
     </Form.Group>

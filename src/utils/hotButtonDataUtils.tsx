@@ -37,7 +37,7 @@ const onLinkedHotButtons = (
             const value = iniData[barKey][buttonKey];
 
             if (value.startsWith(ePrefix + ",") || value === ePrefix) {
-              console.log("suffix: " + value.replace(re, ""));
+              //console.log("suffix: " + value.replace(re, ""));
               operation(
                 {
                   barNum: hotButtonsBar,

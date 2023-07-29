@@ -63,15 +63,17 @@ const Home: React.FC<HomeProps> = ({
     srcButton: SocialButtonLoc,
     dstButton: SocialButtonLoc
   ) => {
-    let linkedSrcHotButtons: HotButtonData[] = [];
-    let linkedDstHotButtons: HotButtonData[] = [];
+    const linkedSrcHotButtons: HotButtonData[] = [];
+    const linkedDstHotButtons: HotButtonData[] = [];
 
+    /*
     console.log(
       "Action src: " +
         JSON.stringify(srcButton) +
         "  dst: " +
         JSON.stringify(dstButton)
     );
+    */
     onLinkedHotButtons(
       srcButton,
       (button: HotButtonLoc, suffix: string) => {
