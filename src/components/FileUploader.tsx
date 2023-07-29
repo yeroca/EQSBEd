@@ -48,7 +48,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             <span style={{ fontStyle: "italic" }}>character_server</span>
             .ini file from your Everquest folder
           </Form.Label>
-          <Form.Control type="file" onChange={handleFileChange} />
+          <Form.Control type="file" accept=".ini" onChange={handleFileChange} />
         </Form.Group>
       </Form>
     </>
