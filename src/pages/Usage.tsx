@@ -4,22 +4,48 @@ const Usage = () => {
   return (
     <>
       <Container className="ms-2">
+        <h4>Purpose</h4>
+        <p>
+          Sock Drawer is an Everquest social button (aka macro) editor that you
+          use while you are logged out of the game. With it, you can rearrange
+          your Everquest social buttons, as well as edit them in a more
+          user-friendly way than the game itself allows. For example, you can
+          easily copy and paste lines, shift lines up and down, just like you
+          would in an editor like Notepad. Everquest itself doesn't allow you to
+          move social buttons around, but this tool does. So, in general, Sock
+          Drawer is a big upgrade to the in-game social button editor, except
+          that you have to use it while logged out, which is admittedly a
+          disadvantage.
+        </p>
         <h4>Usage</h4>
         <p>
-          After choosing your <i>&lt;character&gt;_&lt;server&gt;</i>.ini file
-          from your Everquest folder at the top of the page, you can:
-          <ul>
-            <li key="ul1">
-              click and drag a button from one location to another to swap those
-              two buttons
+          <ol>
+            <li key="st10">
+              Log out of your Everquest account completely, because it's not
+              clear when Everquest reads and writes your{" "}
+              <i>&lt;character&gt;_&lt;server&gt;</i>.ini file.
             </li>
-            <li key="ul2">
-              double click on a button to view and/or edit its contents
+
+            <li>
+              After choosing your <i>&lt;character&gt;_&lt;server&gt;</i>.ini
+              file from your Everquest folder at the top of the home Sock Drawer
+              page, you can:
+              <ul>
+                <li key="ul1">
+                  click and drag a button from one location to another to swap
+                  those two buttons
+                </li>
+                <li key="ul2">
+                  double click on a button to view and/or edit its contents
+                </li>
+              </ul>
             </li>
-          </ul>
-          When you are finished, click the Download button below. Sock Drawer
-          will store the file whereever you normally download files to, for
-          example your Downloads folder.
+            <li>
+              When you are finished, click the Download button below. Sock
+              Drawer will store the file wherever you normally download files
+              to, for example your Downloads folder.
+            </li>
+          </ol>
         </p>
         <p>
           <strong>Warning: </strong>Before copying or moving the downloaded file
