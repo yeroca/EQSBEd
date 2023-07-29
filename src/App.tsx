@@ -18,7 +18,7 @@ const App = () => {
   // Declare these state variables here so that they are preseved when switch to other pages
   const [iniData, setIniData] = useState<IniData>({});
   const [fileName, setFileName] = useState<string>("");
-  console.log("fileName: " + fileName);
+
   return (
     <>
       <Container fluid className="ms-2">

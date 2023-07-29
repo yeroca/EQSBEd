@@ -183,7 +183,6 @@ const Home: React.FC<HomeProps> = ({
     if (newWindow) newWindow.opener = null;
   };
 */
-  console.log("fileName: " + fileName);
   return (
     <>
       <Container fluid className="ms-2">
