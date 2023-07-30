@@ -68,9 +68,8 @@ const Usage = () => {
             modified, and then written by Sock Drawer.
           </li>
         </ul>
-        <h4>Known issues in Alpha 0.7</h4>
+        <h4>Known issues in Alpha 0.8</h4>
         <ul>
-          <li key="kir_li1">There is no UI for choosing the color (yet)</li>
           <li key="kir_li2">
             Once you click accept, there is no validity checking on the
             commands. If you have entered more than five lines of commands,
@@ -86,7 +85,6 @@ const Usage = () => {
         </ul>
         <h4>Future features</h4>
         <ul>
-          <li key="ff_li1">Add color picker</li>
           <li key="ff_li3">
             Add validity checking on social button editor commands field
           </li>

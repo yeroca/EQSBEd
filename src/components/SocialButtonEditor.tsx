@@ -11,6 +11,8 @@ import TextInput from "./TextInput";
 import { onLinkedHotButtons } from "../utils/hotButtonDataUtils";
 
 import { Button, Form, Col, Modal, Row, Table } from "react-bootstrap";
+import ColorSelector from "./ColorSelector";
+import { colors } from "../utils/colors";
 
 /*
 const printStackTrace = () => {
@@ -116,6 +118,10 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
 
   const linkedHotButtons: HotButtonData[] = [];
 
+  const handleSelectColor = (color: number) => {
+    dispatch({ type: "SET_COLOR", payload: color.toString() });
+  };
+
   onLinkedHotButtons(
     buttonLoc,
     (button: HotButtonLoc, suffix: string) => {
@@ -124,6 +130,11 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
     iniData
   );
 
+  const color: string = socialButtonData.color
+    ? colors[parseInt(socialButtonData.color)]
+    : colors[0];
+
+  //console.log("color: " + color);
   return (
     <Modal
       show={showModal}
@@ -143,9 +154,11 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
         <Form>
           <Row sm="auto">
             <Col>
+              <ColorSelector onSelectColor={handleSelectColor} />
               <TextInput
                 value={socialButtonData.name}
                 onUpdate={handleNameChange}
+                color={color}
               />
               <LimitedTextarea
                 maxLength={2000}
