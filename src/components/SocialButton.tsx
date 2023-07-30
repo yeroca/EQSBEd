@@ -5,6 +5,7 @@ import {
 } from "../utils/pageButtonUtils";
 import IniData from "../IniData";
 import { SocialButtonLoc } from "../ButtonTypes";
+import { colors } from "../utils/colors";
 //import dumpHash from "../utils/dumpHash";
 
 interface SocialButtonProps {
@@ -14,33 +15,6 @@ interface SocialButtonProps {
   onDragEnd: (buttonLoc: SocialButtonLoc) => void;
   onDoubleClick: (buttonLoc: SocialButtonLoc) => void;
 }
-
-interface ColorsType {
-  [key: string]: string;
-}
-
-const colors: ColorsType = {
-  "0": "#F0F0F0",
-  "1": "#F0B400",
-  "2": "#008000",
-  "3": "#B46400",
-  "4": "#000080",
-  "5": "#F000F0",
-  "6": "#808080",
-  "7": "#C8C8C8",
-  "8": "#828200",
-  "9": "#C06060",
-  "10": "#090909",
-  "11": "#8C0000",
-  "12": "#A0A0A0",
-  "13": "#F00000",
-  "14": "#00F000",
-  "15": "#F0F000",
-  "16": "#0B0CBD",
-  "17": "#0064F0",
-  "18": "#00F0F0",
-  "19": "#800080",
-};
 
 const SocialButton: React.FC<SocialButtonProps> = ({
   iniData,
@@ -62,8 +36,8 @@ const SocialButton: React.FC<SocialButtonProps> = ({
 
   const color: string =
     "Socials" in iniData && colorKey in iniData["Socials"]
-      ? colors[iniData["Socials"][colorKey]]
-      : colors["0"];
+      ? colors[parseInt(iniData["Socials"][colorKey])]
+      : colors[0];
 
   const customStyle = {
     width: "90px",
