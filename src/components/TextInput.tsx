@@ -23,7 +23,6 @@ const TextInput: React.FC<TextInputProps> = ({ value, onUpdate, color }) => {
         value={value}
         onChange={handleChange}
         className="form-control custom-input"
-        placeholder="Enter text here"
         style={{ color: color }}
       />
     </Form.Group>
