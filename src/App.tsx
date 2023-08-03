@@ -2,7 +2,7 @@
 // ParentComponent.js
 
 import { useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 // React router stuff
 import { Route, Routes } from "react-router-dom";
@@ -33,6 +33,15 @@ const App = () => {
             <Nav.Link as={Link} to="/privacy">
               Privacy and secuity
             </Nav.Link>
+            <NavDropdown title="About" id="basic-nav-dropdown">
+              <NavDropdown.Item>Version 0.9 Beta</NavDropdown.Item>
+              <NavDropdown.Item
+                target="_blank"
+                href="https://github.com/yeroca/SockDrawer"
+              >
+                Source: https://github.com/yeroca/SockDrawer
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar>
       </Container>

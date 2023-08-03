@@ -190,6 +190,13 @@ const Home: React.FC<HomeProps> = ({
       <Container fluid className="ms-2">
         <FileUploader onIniData={setIniData} onFileName={fileNameHandler} />
         <table>
+          <thead>
+            <tr key={0}>
+              <th style={{ textAlign: "center" }} colSpan={10}>
+                {fileName}
+              </th>
+            </tr>
+          </thead>
           <tbody>
             <tr key={1}>
               {pageNums.map((pageNum) => (

@@ -68,7 +68,7 @@ const Usage = () => {
             modified, and then written by Sock Drawer.
           </li>
         </ul>
-        <h4>Known issues in Alpha 0.8</h4>
+        <h4>Known issues in 0.9 Beta</h4>
         <ul>
           <li key="kir_li2">
             Once you click accept, there is no validity checking on the
@@ -80,7 +80,7 @@ const Usage = () => {
             then switch to one of the documentation pages, and back again, the
             file name in the "Browse..." field will say, "No file selected".
             However this is just visual, because Sock Drawer still knows the
-            file name.
+            file name, as shown in the header of the social button pages.
           </li>
         </ul>
         <h4>Future features</h4>
