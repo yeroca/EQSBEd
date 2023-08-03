@@ -215,15 +215,15 @@ const Home: React.FC<HomeProps> = ({
         </table>
         <Alert message="Make a backup copy of your original .ini file before using the one created here" />
         <FileDownloader iniData={iniData} fileName={fileName} />
-        <SocialButtonEditor
-          iniData={iniData}
-          buttonLoc={editSocialButtonLoc}
-          showModal={showSocialButtonEditorModal}
-          setShowModal={setShowSocialButtonEditorModal}
-          onHide={() => setShowSocialButtonEditorModal(false)}
-          onClickAccept={handleClickAccept}
-        />
       </Container>
+      <SocialButtonEditor
+        iniData={iniData}
+        buttonLoc={editSocialButtonLoc}
+        showModal={showSocialButtonEditorModal}
+        setShowModal={setShowSocialButtonEditorModal}
+        onHide={() => setShowSocialButtonEditorModal(false)}
+        onClickAccept={handleClickAccept}
+      />
     </>
   );
 };
