@@ -2,15 +2,7 @@ import React from "react";
 import SocialButton from "./SocialButton";
 import IniData from "../IniData";
 import { SocialButtonLoc } from "../ButtonTypes";
-//import dumpHash from "../utils/dumpHash";
-
-interface SocialButtonPageProps {
-  iniData: IniData;
-  pageNum: number;
-  onDrop: (buttonLoc: SocialButtonLoc) => void;
-  onDragEnd: (buttonLoc: SocialButtonLoc) => void;
-  onDoubleClick: (buttonLoc: SocialButtonLoc) => void;
-}
+import { WindowSize } from "../WindowSize";
 
 const thStyle: React.CSSProperties = {
   textAlign: "center",
@@ -23,12 +15,22 @@ const tableStyle: React.CSSProperties = {
 
 const rowNums = Array.from(Array(6), (_, i) => i + 1);
 
+interface SocialButtonPageProps {
+  iniData: IniData;
+  pageNum: number;
+  onDrop: (buttonLoc: SocialButtonLoc) => void;
+  onDragEnd: (buttonLoc: SocialButtonLoc) => void;
+  onDoubleClick: (buttonLoc: SocialButtonLoc) => void;
+  windowSize: WindowSize;
+}
+
 const SocialButtonPage: React.FC<SocialButtonPageProps> = ({
   iniData,
   pageNum,
   onDrop,
   onDragEnd,
   onDoubleClick,
+  windowSize,
 }) => {
   //console.log("Render SocialButtonPage " + pageNum);
   //if (iniData) {
@@ -53,6 +55,7 @@ const SocialButtonPage: React.FC<SocialButtonPageProps> = ({
                 onDrop={onDrop}
                 onDragEnd={onDragEnd}
                 onDoubleClick={onDoubleClick}
+                windowSize={windowSize}
               ></SocialButton>
             </td>
             <td key={rowNum + 6}>
@@ -62,6 +65,7 @@ const SocialButtonPage: React.FC<SocialButtonPageProps> = ({
                 onDrop={onDrop}
                 onDragEnd={onDragEnd}
                 onDoubleClick={onDoubleClick}
+                windowSize={windowSize}
               ></SocialButton>
             </td>
           </tr>

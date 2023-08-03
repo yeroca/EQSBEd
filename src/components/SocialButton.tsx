@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import {
   pageButtonToNameKey,
   pageButtonToColorKey,
@@ -6,6 +6,7 @@ import {
 import IniData from "../IniData";
 import { SocialButtonLoc } from "../ButtonTypes";
 import { colors } from "../utils/colors";
+import { WindowSize } from "../WindowSize";
 //import dumpHash from "../utils/dumpHash";
 
 interface SocialButtonProps {
@@ -14,6 +15,7 @@ interface SocialButtonProps {
   onDrop: (buttonLoc: SocialButtonLoc) => void;
   onDragEnd: (buttonLoc: SocialButtonLoc) => void;
   onDoubleClick: (buttonLoc: SocialButtonLoc) => void;
+  windowSize: WindowSize;
 }
 
 const SocialButton: React.FC<SocialButtonProps> = ({
@@ -22,6 +24,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
   onDrop,
   onDragEnd,
   onDoubleClick,
+  windowSize,
 }) => {
   //console.log("Render Social Button");
 
@@ -39,9 +42,15 @@ const SocialButton: React.FC<SocialButtonProps> = ({
       ? colors[parseInt(iniData["Socials"][colorKey])]
       : colors[0];
 
-  const customStyle: CSSProperties = {
-    width: "90px",
-    height: "80px",
+  const outerHorizMargin: number = 20;
+  const innerHorizMargin: number = 5;
+  const tileSize: number =
+    Math.floor((windowSize.width - outerHorizMargin) / 20) - innerHorizMargin;
+
+  console.log("tileSize: " + tileSize);
+  const customStyle: React.CSSProperties = {
+    width: tileSize + "px",
+    height: tileSize + "px",
     backgroundColor: "#211d21",
     color: color,
     display: "flex",
@@ -50,6 +59,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
     textAlign: "center",
     cursor: "grab", // Show a grabbing cursor during drag
   };
+  console.log(JSON.stringify(customStyle));
 
   const myHandleDrop = () => {
     onDrop(buttonLoc);

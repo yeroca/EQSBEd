@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import FileUploader from "../components/FileUploader";
 import SocialButtonPage from "../components/SocialButtonPage";
@@ -22,6 +22,7 @@ import copyIniData from "../utils/copyIniData";
 
 import { Container } from "react-bootstrap";
 import SocialButtonData from "../SocialButtonData";
+import { WindowSize } from "../WindowSize";
 
 //import dumpHash from "./utils/dumpHash";
 
@@ -42,8 +43,29 @@ const Home: React.FC<HomeProps> = ({
 }) => {
   const [editSocialButtonLoc, setEditSocialButtonLoc] =
     useState<SocialButtonLoc>({ pageNum: 0, buttonNum: 0 });
+
   const [showSocialButtonEditorModal, setShowSocialButtonEditorModal] =
     useState<boolean>(false);
+
+  const [windowSize, setWindowSize] = useState<WindowSize>({
+    width: 0,
+    height: 0,
+  });
+
+  const handleWindowResize = () => {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+  };
+
+  // Effect to add event listener for window resize and cleanup
+  useEffect(() => {
+    console.log("window resize event!");
+    window.addEventListener("resize", handleWindowResize);
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   const [srcSocialButtonLoc, setSrcSocialButtonLoc] = useState<SocialButtonLoc>(
     {
@@ -207,6 +229,7 @@ const Home: React.FC<HomeProps> = ({
                     onDrop={handleDrop}
                     onDragEnd={handleDragEnd}
                     onDoubleClick={handleDoubleClick}
+                    windowSize={windowSize}
                   />
                 </td>
               ))}

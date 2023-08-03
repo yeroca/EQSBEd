@@ -34,6 +34,10 @@ const Usage = () => {
             <i>&lt;character&gt;_&lt;server&gt;</i>.ini file.
           </li>
           <li>
+            Widen the browser window as much as possible on your monitor, as
+            this will make the button labels fit better.
+          </li>
+          <li>
             After choosing your <i>&lt;character&gt;_&lt;server&gt;</i>.ini file
             from your Everquest folder at the top of the home Sock Drawer page,
             you can:
@@ -68,7 +72,7 @@ const Usage = () => {
             modified, and then written by Sock Drawer.
           </li>
         </ul>
-        <h4>Known issues in 0.9 Beta</h4>
+        <h4>Known issues in 0.9.1 Beta</h4>
         <ul>
           <li key="kir_li2">
             Once you click accept, there is no validity checking on the
