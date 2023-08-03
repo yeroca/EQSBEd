@@ -48,8 +48,8 @@ const Home: React.FC<HomeProps> = ({
     useState<boolean>(false);
 
   const [windowSize, setWindowSize] = useState<WindowSize>({
-    width: 0,
-    height: 0,
+    width: window.innerWidth,
+    height: window.innerHeight,
   });
 
   const handleWindowResize = () => {
@@ -58,7 +58,6 @@ const Home: React.FC<HomeProps> = ({
 
   // Effect to add event listener for window resize and cleanup
   useEffect(() => {
-    console.log("window resize event!");
     window.addEventListener("resize", handleWindowResize);
 
     // Cleanup function to remove the event listener when the component unmounts

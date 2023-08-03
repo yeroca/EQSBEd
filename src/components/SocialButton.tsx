@@ -44,10 +44,11 @@ const SocialButton: React.FC<SocialButtonProps> = ({
 
   const outerHorizMargin: number = 20;
   const innerHorizMargin: number = 5;
+  const numButtonColumns: number = 20;
   const tileSize: number =
-    Math.floor((windowSize.width - outerHorizMargin) / 20) - innerHorizMargin;
+    Math.floor((windowSize.width - outerHorizMargin) / numButtonColumns) -
+    innerHorizMargin;
 
-  console.log("tileSize: " + tileSize);
   const customStyle: React.CSSProperties = {
     width: tileSize + "px",
     height: tileSize + "px",
@@ -59,7 +60,6 @@ const SocialButton: React.FC<SocialButtonProps> = ({
     textAlign: "center",
     cursor: "grab", // Show a grabbing cursor during drag
   };
-  console.log(JSON.stringify(customStyle));
 
   const myHandleDrop = () => {
     onDrop(buttonLoc);
