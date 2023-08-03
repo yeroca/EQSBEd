@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import {
   pageButtonToNameKey,
   pageButtonToColorKey,
@@ -39,11 +39,16 @@ const SocialButton: React.FC<SocialButtonProps> = ({
       ? colors[parseInt(iniData["Socials"][colorKey])]
       : colors[0];
 
-  const customStyle = {
+  const customStyle: CSSProperties = {
     width: "90px",
     height: "80px",
     backgroundColor: "#211d21",
     color: color,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    cursor: "grab", // Show a grabbing cursor during drag
   };
 
   const myHandleDrop = () => {
@@ -59,8 +64,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
   };
 
   return (
-    <button
-      type="button"
+    <div
       draggable="true"
       style={customStyle}
       onDragOver={(event) => event.preventDefault()}
@@ -69,7 +73,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
       onDoubleClick={myHandleDoubleClick}
     >
       {name}
-    </button>
+    </div>
   );
 };
 
