@@ -31,15 +31,15 @@ const SocialButton: React.FC<SocialButtonProps> = ({
   const nameKey: string = pageButtonToNameKey(buttonLoc);
 
   const name: string =
-    "Socials" in iniData && nameKey in iniData["Socials"]
-      ? iniData["Socials"][nameKey]
-      : "-empty-";
+    "Socials" in iniData && nameKey in iniData.Socials
+      ? iniData.Socials[nameKey]
+      : "";
 
   const colorKey: string = pageButtonToColorKey(buttonLoc);
 
   const color: string =
-    "Socials" in iniData && colorKey in iniData["Socials"]
-      ? colors[parseInt(iniData["Socials"][colorKey])]
+    "Socials" in iniData && colorKey in iniData.Socials
+      ? colors[parseInt(iniData.Socials[colorKey])]
       : colors[0];
 
   const outerHorizMargin: number = 20;
