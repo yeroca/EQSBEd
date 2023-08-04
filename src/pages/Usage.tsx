@@ -71,6 +71,17 @@ const Usage = () => {
             no fix for this issue because of the way the .ini file is read,
             modified, and then written by Sock Drawer.
           </li>
+          <li key="ki_li2">
+            You may notice that some buttons on page 1 appear empty. This is
+            because some buttons, if empty, have default values given by the
+            game itself, such as a button for Consider which does a /con
+            command. These defaults do not actually appear in the{" "}
+            <i>&lt;character&gt;_&lt;server&gt;</i>.ini file, so Sock Drawer
+            does not display them. I don't see a strong reason to emulate this
+            default behavior in Sock Drawer, so instead you will see blank
+            buttons there if you haven't redefined them already. I don't expect
+            to change this behavior in the future.
+          </li>
         </ul>
         <h4>Known issues in 0.9.1 Beta</h4>
         <ul>
