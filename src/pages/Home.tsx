@@ -188,14 +188,10 @@ const Home: React.FC<HomeProps> = ({
   const handleClickAccept = (
     buttonLoc: SocialButtonLoc,
     socialButtonData: SocialButtonData
-  ): boolean => {
+  ): void => {
     const newIniData = copyIniData(iniData);
-    if (storeSocialButtonData(buttonLoc, socialButtonData, newIniData)) {
-      setIniData(newIniData);
-      return true;
-    } else {
-      return false;
-    }
+    storeSocialButtonData(buttonLoc, socialButtonData, newIniData);
+    setIniData(newIniData);
   };
 
   /*

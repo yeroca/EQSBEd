@@ -43,7 +43,7 @@ const storeSocialButtonData = (
   buttonLoc: SocialButtonLoc,
   socialData: SocialButtonData,
   iniData: IniData
-): boolean => {
+): void => {
   if (socialData.name === "") {
     delete iniData.Socials[pageButtonToNameKey(buttonLoc)];
   } else {
@@ -62,8 +62,14 @@ const storeSocialButtonData = (
         socialData.lines[lineNum - 1];
     }
   }
-  // No validity checking for now
-  return true;
 };
 
-export { loadSocialButtonData, storeSocialButtonData };
+const lengthExceedsLimit = (lines: string[]): boolean => {
+  // Ignore trailing blank lines, which are likely to occur during normal editing by mistake
+  for (let i = lines.length - 1; i >= 0; i--) {
+    if (lines[i] !== "") return i + 1 > 5;
+  }
+  return false;
+};
+
+export { loadSocialButtonData, storeSocialButtonData, lengthExceedsLimit };

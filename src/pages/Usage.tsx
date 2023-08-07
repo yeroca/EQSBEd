@@ -83,13 +83,8 @@ const Usage = () => {
             to change this behavior in the future.
           </li>
         </ul>
-        <h4>Known issues in 0.9.2 Beta</h4>
+        <h4>Known issues in version 1.0</h4>
         <ul>
-          <li key="kir_li2">
-            Once you click accept, there is no validity checking on the
-            commands. If you have entered more than five lines of commands,
-            lines past the fifth will be cut off without warning.
-          </li>
           <li key="kir_li3">
             After loading a <i>&lt;character&gt;_&lt;server&gt;</i>.ini, if you
             then switch to one of the documentation pages, and back again, the
@@ -100,9 +95,7 @@ const Usage = () => {
         </ul>
         <h4>Future features</h4>
         <ul>
-          <li key="ff_li3">
-            Add validity checking on social button editor commands field
-          </li>
+          <li key="ff_li1">Maybe add a search capability</li>
         </ul>
       </Container>
     </>

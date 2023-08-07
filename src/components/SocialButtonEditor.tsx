@@ -4,7 +4,10 @@ import IniData from "../IniData";
 import SocialButtonData from "../SocialButtonData";
 import HotButtonData from "../HotButtonData";
 import { HotButtonLoc, SocialButtonLoc } from "../ButtonTypes";
-import { loadSocialButtonData } from "../utils/socialButtonDataUtils";
+import {
+  lengthExceedsLimit,
+  loadSocialButtonData,
+} from "../utils/socialButtonDataUtils";
 
 import LimitedTextarea from "./LimitedTextarea";
 import TextInput from "./TextInput";
@@ -59,7 +62,7 @@ interface SocialButtonEditorProps {
   onClickAccept: (
     buttonLoc: SocialButtonLoc,
     socialButtonData: SocialButtonData
-  ) => boolean;
+  ) => void;
 }
 
 const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
@@ -111,9 +114,8 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   };
 
   const handleClickAccept = () => {
-    if (onClickAccept(buttonLoc, socialButtonData)) {
-      setShowModal(false);
-    }
+    onClickAccept(buttonLoc, socialButtonData);
+    setShowModal(false);
   };
 
   const linkedHotButtons: HotButtonData[] = [];
@@ -210,7 +212,12 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
         <Button onClick={handleClearFields}>Clear</Button>
-        <Button onClick={handleClickAccept}>Accept</Button>
+        <Button
+          disabled={lengthExceedsLimit(socialButtonData.lines)}
+          onClick={handleClickAccept}
+        >
+          Accept
+        </Button>
       </Modal.Footer>
     </Modal>
   );

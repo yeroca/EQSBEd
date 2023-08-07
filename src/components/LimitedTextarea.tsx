@@ -1,20 +1,12 @@
 import React, { ChangeEvent } from "react";
 import Form from "react-bootstrap/Form";
+import { lengthExceedsLimit } from "../utils/socialButtonDataUtils";
 
 interface LimitedTextareaProps {
   maxLength: number;
   value: string;
   onChange: (newValue: string) => void;
 }
-
-const lengthExceedsLimit = (s: string): boolean => {
-  // Ignore trailing blank lines, which are likely to occur during normal editing by mistake
-  const arr = s.split("\n");
-  for (let i = arr.length - 1; i >= 0; i--) {
-    if (arr[i] !== "") return i + 1 > 5;
-  }
-  return false;
-};
 
 const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
   maxLength,
@@ -36,12 +28,14 @@ const LimitedTextarea: React.FC<LimitedTextareaProps> = ({
         cols={80}
         maxLength={maxLength}
         style={{
-          backgroundColor: lengthExceedsLimit(value) ? "#ffbbbb" : "",
+          backgroundColor: lengthExceedsLimit(value.split("\n"))
+            ? "#ee2222"
+            : "",
         }}
       />
       <Form.Text>
         <>
-          {lengthExceedsLimit(value) &&
+          {lengthExceedsLimit(value.split("\n")) &&
             "A social button cannot have more than five lines of commands (blank lines between commands count)"}
         </>
       </Form.Text>
