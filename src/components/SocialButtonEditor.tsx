@@ -16,6 +16,7 @@ import { onLinkedHotButtons } from "../utils/hotButtonDataUtils";
 import { Button, Form, Col, Modal, Row, Table } from "react-bootstrap";
 import ColorSelector from "./ColorSelector";
 import { colors } from "../utils/colors";
+import { altActName } from "../utils/altAct";
 
 /*
 const printStackTrace = () => {
@@ -118,6 +119,26 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
     setShowModal(false);
   };
 
+  const handleAddAltActNotes = () => {
+    const altActRe =
+      /^(?<prefix>[ \t]*(\/pause[ \t]+[0-9]+[ \t]*,[ \t]*)?\/alt[a-z]*[ \t]+act[a-z]*[ \t]+)(?<code>[0-9]+)([ \t]|$)/;
+
+    for (let i = 0; i < socialButtonData.lines.length; i++) {
+      const match = socialButtonData.lines[i].match(altActRe);
+      if (match) {
+        if (match.groups) {
+          const code: string = match.groups.code;
+          socialButtonData.lines[i] =
+            match.groups.prefix +
+            code +
+            " # " +
+            (code in altActName ? altActName[code] : "unknown code");
+        }
+      }
+      dispatch({ type: "SET_LINES", payload: socialButtonData.lines });
+    }
+  };
+
   const linkedHotButtons: HotButtonData[] = [];
 
   const handleSelectColor = (color: number) => {
@@ -212,6 +233,7 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
         <Button onClick={handleClearFields}>Clear</Button>
+        <Button onClick={handleAddAltActNotes}>Add notes to /alt act</Button>
         <Button
           disabled={lengthExceedsLimit(socialButtonData.lines)}
           onClick={handleClickAccept}
