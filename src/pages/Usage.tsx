@@ -83,7 +83,7 @@ const Usage = () => {
             to change this behavior in the future.
           </li>
         </ul>
-        <h4>Known issues in version 1.0</h4>
+        <h4>Known issues in version 1.1</h4>
         <ul>
           <li key="kir_li3">
             After loading a <i>&lt;character&gt;_&lt;server&gt;</i>.ini, if you
