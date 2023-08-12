@@ -55,7 +55,10 @@ const storeSocialButtonData = (
     iniData.Socials[pageButtonToColorKey(buttonLoc)] = socialData.color;
   }
   for (let lineNum = 1; lineNum <= 5; lineNum++) {
-    if (socialData.lines[lineNum - 1] === "") {
+    if (
+      socialData.lines.length < lineNum ||
+      socialData.lines[lineNum - 1] === ""
+    ) {
       delete iniData.Socials[pageButtonToLineKey(buttonLoc, lineNum)];
     } else {
       iniData.Socials[pageButtonToLineKey(buttonLoc, lineNum)] =
