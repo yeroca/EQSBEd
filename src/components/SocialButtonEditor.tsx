@@ -48,7 +48,10 @@ const socialButtonReducer = (
     case "SET_LINES":
       //console.log("SET_LINES : " + JSON.stringify(action.payload));
       //printStackTrace();
-      return { ...state, lines: action.payload };
+      for (let idx = action.payload.length; idx <= 4; idx++) {
+        action.payload.push("");
+      }
+      return { ...state, lines: action.payload.slice(0, 5) };
     default:
       return state;
   }
