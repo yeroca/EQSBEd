@@ -31,10 +31,10 @@ const App = () => {
               Usage and known issues
             </Nav.Link>
             <Nav.Link as={Link} to="/privacy">
-              Privacy and secuity
+              Privacy and security
             </Nav.Link>
             <NavDropdown title="About" id="basic-nav-dropdown">
-              <NavDropdown.Item>Version 1.1</NavDropdown.Item>
+              <NavDropdown.Item>Version 1.1.1</NavDropdown.Item>
               <NavDropdown.Item
                 target="_blank"
                 href="https://github.com/yeroca/SockDrawer"
