@@ -30,6 +30,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             ? content
             : new TextDecoder().decode(content);
         const iniData: IniData = decode(contentString);
+        if (!("Socials" in iniData)) {
+          // There's no Socials section.
+          // Add a dummy one, because other code requires this section to exist
+          iniData["Socials"] = {};
+        }
         onIniData(iniData); // Call the parent's callback with the processed INI data
       }
     };
