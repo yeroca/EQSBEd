@@ -358,6 +358,7 @@ export const altActName: { [key: string]: string } = {
   "901": "Whisperwind",
   "903": "Dead Mesmerization",
   "905": "Gift of the Grave",
+  "910": "Frenzied Kicks",
   "911": "Warlord's Resurgence",
   "912": "Warlord's Fury",
   "920": "Valorous Rage",
