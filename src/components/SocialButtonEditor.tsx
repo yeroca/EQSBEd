@@ -95,7 +95,7 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
 
   const handleAddAltActNotes = () => {
     const altActRe =
-      /^(?<prefix>[ \t]*(\/pause[ \t]+[0-9]+[ \t]*,[ \t]*)?\/alt[a-z]*[ \t]+act[a-z]*[ \t]+)(?<code>[0-9]+)([ \t]|$)/;
+      /^(?<prefix>[ \t]*(\/(pause|timer)[ \t]+[0-9]+[ \t]*,[ \t]*)?\/alt[a-z]*[ \t]+act[a-z]*[ \t]+)(?<code>[0-9]+)([ \t]|$)/;
 
     for (let i = 0; i < socialButtonData.lines.length; i++) {
       const match = socialButtonData.lines[i].match(altActRe);
