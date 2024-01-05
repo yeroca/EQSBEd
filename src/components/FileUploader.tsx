@@ -50,7 +50,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         >
           <Form.Label>
             Choose a{" "}
-            <span style={{ fontStyle: "italic" }}>character_server</span>
+            <span style={{ fontStyle: "italic" }}>character_server_class</span>
             .ini file from your Everquest folder
           </Form.Label>
           <Form.Control
