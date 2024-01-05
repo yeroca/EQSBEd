@@ -15,7 +15,8 @@ const Usage = () => {
           move social buttons around, but Sock Drawer does.
         </p>
         <p>
-          If you have tried to edit a <i>&lt;character&gt;_&lt;server&gt;</i>
+          If you have tried to edit a{" "}
+          <i>&lt;character&gt;_&lt;server&gt;_&lt;class&gt;</i>
           .ini file before, you might wonder if Sock Drawer deals with the hot
           buttons that "link" to the social buttons. The answer is yes; Sock
           Drawer searches for and updates all of your hot buttons that are
@@ -31,16 +32,17 @@ const Usage = () => {
           <li key="st10">
             Log out of your Everquest account completely, because it's not clear
             when Everquest reads and writes your{" "}
-            <i>&lt;character&gt;_&lt;server&gt;</i>.ini file.
+            <i>&lt;character&gt;_&lt;server&gt;_&lt;class&gt;</i>.ini file.
           </li>
           <li>
             Widen the browser window as much as possible on your monitor, as
             this will make the button labels fit better.
           </li>
           <li>
-            After choosing your <i>&lt;character&gt;_&lt;server&gt;</i>.ini file
-            from your Everquest folder at the top of the home Sock Drawer page,
-            you can:
+            After choosing your{" "}
+            <i>&lt;character&gt;_&lt;server&gt;_&lt;class&gt;</i>.ini file from
+            your Everquest folder at the top of the home Sock Drawer page, you
+            can:
             <ul>
               <li key="ul1">
                 click and drag a button from one location to another to swap
@@ -60,33 +62,35 @@ const Usage = () => {
         <p>
           <strong>Warning: </strong>Before copying or moving the downloaded file
           to your Everquest folder, make sure to rename, move, or backup your
-          original <i>&lt;character&gt;_&lt;server&gt;</i>.ini file.
+          original <i>&lt;character&gt;_&lt;server&gt;_&lt;class&gt;</i>.ini
+          file.
         </p>
         <h4>Known issues</h4>
         <ul>
           <li key="ki_li1">
             If you have added whole-line comments to your{" "}
-            <i>&lt;character&gt;_&lt;server&gt;</i>.ini file, those comments
-            will be removed from the subsequently downloaded file. There will be
-            no fix for this issue because of the way the .ini file is read,
-            modified, and then written by Sock Drawer.
+            <i>&lt;character&gt;_&lt;server&gt;_&lt;class&gt;</i>.ini file,
+            those comments will be removed from the subsequently downloaded
+            file. There will be no fix for this issue because of the way the
+            .ini file is read, modified, and then written by Sock Drawer.
           </li>
           <li key="ki_li2">
             You may notice that some buttons on page 1 appear empty. This is
             because some buttons, if empty, have default values given by the
             game itself, such as a button for Consider which does a /con
             command. These defaults do not actually appear in the{" "}
-            <i>&lt;character&gt;_&lt;server&gt;</i>.ini file, so Sock Drawer
-            does not display them. I don't see a strong reason to emulate this
-            default behavior in Sock Drawer, so instead you will see blank
-            buttons there if you haven't redefined them already. I don't expect
-            to change this behavior in the future.
+            <i>&lt;character&gt;_&lt;server&gt;_&lt;class&gt;</i>.ini file, so
+            Sock Drawer does not display them. I don't see a strong reason to
+            emulate this default behavior in Sock Drawer, so instead you will
+            see blank buttons there if you haven't redefined them already. I
+            don't expect to change this behavior in the future.
           </li>
         </ul>
         <h4>Known issues in version 1.1</h4>
         <ul>
           <li key="kir_li3">
-            After loading a <i>&lt;character&gt;_&lt;server&gt;</i>.ini, if you
+            After loading a{" "}
+            <i>&lt;character&gt;_&lt;server&gt;_&lt;class&gt;</i>.ini, if you
             then switch to one of the documentation pages, and back again, the
             file name in the "Browse..." field will say, "No file selected".
             However this is just visual, because Sock Drawer still knows the
