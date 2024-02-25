@@ -41,7 +41,7 @@ const PasteJSONBox: React.FC<{ onPaste: (jsonData: string) => void }> = ({
       tabIndex={0} // Ensure the div can receive focus
       style={{ border: "1px solid #ccc", minHeight: "50px", padding: "5px" }}
     >
-      Copy JSON Data
+      (ignore this box for now)
     </div>
   );
 };
