@@ -19,7 +19,7 @@ const PasteJSONBox: React.FC<{ onPaste: (jsonData: string) => void }> = ({
           try {
             const pastedData = await navigator.clipboard.readText();
 
-            pasteDiv.textContent = "Copy JSON Data"; // Reset the content
+            pasteDiv.textContent = "(ignore this box for now)"; // Reset the content
             onPaste(pastedData);
           } catch (error) {
             console.error("Error reading clipboard:", error);
