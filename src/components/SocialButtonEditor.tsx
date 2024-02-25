@@ -17,6 +17,7 @@ import { Button, Form, Col, Modal, Row, Table } from "react-bootstrap";
 import ColorSelector from "./ColorSelector";
 import { colors } from "../utils/colors";
 import { altActName } from "../utils/altAct";
+import PasteJSONBox from "./PasteJSONBox";
 
 type SocialButtonAction =
   | { type: "SET_NAME"; payload: string }
@@ -119,6 +120,11 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
     dispatch({ type: "SET_COLOR", payload: color.toString() });
   };
 
+  const handlePaste = (jsonData: string) => {
+    // Process the pasted JSON data
+    console.log("Pasted JSON data:", jsonData);
+  };
+
   onLinkedHotButtons(
     buttonLoc,
     (button: HotButtonLoc, suffix: string) => {
@@ -131,7 +137,7 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
     ? colors[parseInt(socialButtonData.color)]
     : colors[0];
 
-  //console.log("color: " + color);
+  // console.log("color: " + color);
   return (
     <Modal
       show={showModal}
@@ -151,7 +157,10 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
         <Form>
           <Row sm="auto">
             <Col>
-              <ColorSelector onSelectColor={handleSelectColor} />
+              <Row sm="auto">
+                <ColorSelector onSelectColor={handleSelectColor} />
+                <PasteJSONBox onPaste={handlePaste} />
+              </Row>
               <TextInput
                 value={socialButtonData.name}
                 onUpdate={handleNameChange}
