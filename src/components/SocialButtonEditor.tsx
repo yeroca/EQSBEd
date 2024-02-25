@@ -159,7 +159,7 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
             <Col>
               <Row sm="auto">
                 <ColorSelector onSelectColor={handleSelectColor} />
-                <PasteJSONBox onPaste={handlePaste} />
+                {false && <PasteJSONBox onPaste={handlePaste} />}
               </Row>
               <TextInput
                 value={socialButtonData.name}
