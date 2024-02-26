@@ -18,6 +18,7 @@ import ColorSelector from "./ColorSelector";
 import { colors } from "../utils/colors";
 import { altActName } from "../utils/altAct";
 import PasteJSONBox from "./PasteJSONBox";
+import CopyButton from "./CopyButton";
 
 type SocialButtonAction =
   | { type: "SET_NAME"; payload: string }
@@ -123,6 +124,27 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
   const handlePaste = (jsonData: string) => {
     // Process the pasted JSON data
     console.log("Pasted JSON data:", jsonData);
+    try {
+      const socialButtonData: SocialButtonData = JSON.parse(jsonData);
+
+      if (
+        "color" in socialButtonData &&
+        "name" in socialButtonData &&
+        "lines" in socialButtonData
+      ) {
+        dispatch({ type: "SET_NAME", payload: socialButtonData.name });
+        dispatch({ type: "SET_COLOR", payload: socialButtonData.color });
+        dispatch({ type: "SET_LINES", payload: socialButtonData.lines });
+      } else {
+        alert(
+          "Pasted button data is incomplete.  Please double check your clipboard contents."
+        );
+      }
+    } catch {
+      alert(
+        "Pasted button data has wrong format.  Please double check your clipboard contents."
+      );
+    }
   };
 
   onLinkedHotButtons(
@@ -158,8 +180,17 @@ const SocialButtonEditor: React.FC<SocialButtonEditorProps> = ({
           <Row sm="auto">
             <Col>
               <Row sm="auto">
-                <ColorSelector onSelectColor={handleSelectColor} />
-                {false && <PasteJSONBox onPaste={handlePaste} />}
+                <Col md={3}>
+                  <ColorSelector onSelectColor={handleSelectColor} />
+                </Col>
+                <Col md={3}>
+                  <CopyButton
+                    jsonString={JSON.stringify(socialButtonData, null, 2)}
+                  />
+                </Col>
+                <Col md={5}>
+                  <PasteJSONBox onPaste={handlePaste} />
+                </Col>
               </Row>
               <TextInput
                 value={socialButtonData.name}

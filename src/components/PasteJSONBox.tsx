@@ -1,9 +1,14 @@
 import React, { useRef, useEffect } from "react";
+import { Form } from "react-bootstrap";
 
-const PasteJSONBox: React.FC<{ onPaste: (jsonData: string) => void }> = ({
-  onPaste,
-}) => {
-  const pasteDivRef = useRef<HTMLDivElement | null>(null);
+interface PasteJSONBoxProps {
+  onPaste: (jsonData: string) => void;
+}
+
+const PasteJSONBox: React.FC<PasteJSONBoxProps> = ({ onPaste }) => {
+  const pasteDivRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const pasteBoxContents = "Use Ctrl-v to paste button here";
 
   useEffect(() => {
     const pasteDiv = pasteDivRef.current;
@@ -19,7 +24,7 @@ const PasteJSONBox: React.FC<{ onPaste: (jsonData: string) => void }> = ({
           try {
             const pastedData = await navigator.clipboard.readText();
 
-            pasteDiv.textContent = "(ignore this box for now)"; // Reset the content
+            pasteDiv.textContent = pasteBoxContents; // Reset the content
             onPaste(pastedData);
           } catch (error) {
             console.error("Error reading clipboard:", error);
@@ -36,13 +41,12 @@ const PasteJSONBox: React.FC<{ onPaste: (jsonData: string) => void }> = ({
   }, [onPaste]);
 
   return (
-    <div
+    <Form.Control
       ref={pasteDivRef}
-      tabIndex={0} // Ensure the div can receive focus
-      style={{ border: "1px solid #ccc", minHeight: "50px", padding: "5px" }}
-    >
-      (ignore this box for now)
-    </div>
+      as="textarea"
+      rows={1}
+      placeholder={pasteBoxContents}
+    />
   );
 };
 
