@@ -34,7 +34,7 @@ const App = () => {
               Privacy and security
             </Nav.Link>
             <NavDropdown title="About" id="basic-nav-dropdown">
-              <NavDropdown.Item>Version 1.1.5</NavDropdown.Item>
+              <NavDropdown.Item>Version 1.2.1</NavDropdown.Item>
               <NavDropdown.Item
                 target="_blank"
                 href="https://github.com/yeroca/SockDrawer"
