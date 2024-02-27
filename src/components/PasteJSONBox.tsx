@@ -6,46 +6,41 @@ interface PasteJSONBoxProps {
 }
 
 const PasteJSONBox: React.FC<PasteJSONBoxProps> = ({ onPaste }) => {
-  const pasteDivRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const pasteBoxContents = "Use Ctrl-v to paste button here";
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    const pasteDiv = pasteDivRef.current;
+    const inputElement = inputRef.current;
 
-    if (pasteDiv) {
-      const handleKeyDown = async (event: KeyboardEvent) => {
-        if (
-          (event.key === "v" || event.key === "V") &&
-          (event.ctrlKey || event.metaKey)
-        ) {
-          event.preventDefault();
+    if (inputElement) {
+      const handlePaste = (event: ClipboardEvent) => {
+        event.preventDefault();
+        const pastedData = event.clipboardData?.getData("text/plain");
 
-          try {
-            const pastedData = await navigator.clipboard.readText();
+        // Process the pasted data internally
+        onPaste(pastedData || "");
 
-            pasteDiv.textContent = pasteBoxContents; // Reset the content
-            onPaste(pastedData);
-          } catch (error) {
-            console.error("Error reading clipboard:", error);
-          }
-        }
+        // Clear the input value for future paste operations
+        inputElement.value = "";
       };
 
-      pasteDiv.addEventListener("keydown", handleKeyDown);
+      inputElement.addEventListener("paste", handlePaste);
 
       return () => {
-        pasteDiv.removeEventListener("keydown", handleKeyDown);
+        inputElement.removeEventListener("paste", handlePaste);
       };
     }
   }, [onPaste]);
 
   return (
     <Form.Control
-      ref={pasteDivRef}
-      as="textarea"
-      rows={1}
-      placeholder={pasteBoxContents}
+      ref={inputRef}
+      as="input"
+      type="text"
+      placeholder="Paste button here"
+      style={{
+        border: "1px solid #ced4da",
+        padding: "10px",
+      }}
     />
   );
 };
