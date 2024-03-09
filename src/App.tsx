@@ -24,7 +24,7 @@ const App = () => {
       <Container fluid className="ms-2">
         <Navbar expand="lg">
           <Navbar.Brand as={Link} to="/">
-            Sock Drawer
+            SockDrawer
           </Navbar.Brand>
           <Nav>
             <Nav.Link as={Link} to="/usage">
@@ -34,7 +34,7 @@ const App = () => {
               Privacy and security
             </Nav.Link>
             <NavDropdown title="About" id="basic-nav-dropdown">
-              <NavDropdown.Item>Version 1.2.2</NavDropdown.Item>
+              <NavDropdown.Item>Version 1.2.3</NavDropdown.Item>
               <NavDropdown.Item
                 target="_blank"
                 href="https://github.com/yeroca/SockDrawer"
